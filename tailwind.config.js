@@ -16,7 +16,7 @@ export default {
             colors: {
                 transparent: "transparent",
                 current: "currentColor",
-                white: "#E2FDFF",
+                white: "#E7EFEE",
                 black: "#0D171A",
                 primary: "#FFDA29",
             },

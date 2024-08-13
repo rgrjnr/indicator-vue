@@ -1,11 +1,5 @@
-<svg
-    preserveAspectRatio="none"
-    width="524"
-    height="714"
-    viewBox="0 0 524 714"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="800" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
-        d="M477.5 713H45V215.5L1 171.5V1H477.5L523.5 47V667L477.5 713Z"
+        d="M548.177 801H51.5263V185.831L1 136.393V1H548.177L601 52.6854V749.315L548.177 801Z"
         fill="black" />
 </svg>

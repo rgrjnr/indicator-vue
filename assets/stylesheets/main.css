@@ -15,10 +15,27 @@ body {
     align-items: stretch;
     justify-content: stretch;
     padding: 3rem;
+    --rgb-white: 226 253 255;
+    --rgb-primary: 255 218 41;
+    --rgb-black: 19 20 21;
+    --color-white: rgb(var(--rgb-white));
+    --color-primary: rgb(var(--rgb-primary));
+    --color-black: rgb(var(--rgb-black));
+    --content-padding: 3rem;
 
-    --color-white: rgb(226 253 255);
-    --color-primary: rgb(255 218 41);
-    --color-black: rgb(19 20 21);
+    --shape-mask-image: url('/images/team-shape.svg')
+}
+
+
+h1 {
+    @apply text-4xl;
+    text-transform: lowercase;
+    line-height: 1;
+}
+
+h2 {
+    line-height: 1;
+    ;
 }
 
 #website {
@@ -46,8 +63,9 @@ body {
     flex: 1;
     display: flex;
     gap: 1rem;
-    padding: 3rem;
+    padding: var(--content-padding);
     position: relative;
+    background-color: rbga(var(--rgb-white) 0.3);
 }
 
 
@@ -60,6 +78,12 @@ body {
     flex: 1;
 }
 
+.panel-stretch {
+    margin-block: calc(-1 * var(--content-padding));
+    padding-block: var(--content-padding);
+}
+
+
 .panel-shape {
     position: absolute;
     top: 0;
@@ -67,9 +91,138 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 .panel.has-shape {
     flex: unset;
     aspect-ratio: 3/4;
+    overflow: hidden;
+}
+
+.has-shape .panel-inside {
+
+    overflow-x: hidden;
+    aspect-ratio: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 1rem;
+}
+
+.panel-inside {
+    mask-image: var(--shape-mask-image);
+    mask-size: contain;
+}
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: var(--color-black);
+    background: rgba(255, 218, 41, 0.9);
+}
+
+::selection {
+    color: var(--color-black);
+    background: rgba(255, 218, 41, 0.9);
+}
+
+.nuxt-loading-indicator {
+    background: var(--color-primary) !important;
+}
+
+#copyright {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    --size: 1rem;
+}
+
+#copyright svg {
+    z-index: 2;
+    position: relative;
+    margin: 0.5rem;
+    mix-blend-mode: darken;
+}
+
+#copyright:hover path {
+    fill: var(--color-white);
+    stroke: var(--color-black);
+}
+
+#copyright:before {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 0 var(--size) var(--size);
+    border-color: transparent transparent var(--color-white) transparent;
+    transform: rotate(0deg);
+    transition: all 200ms;
+}
+
+#copyright:hover {
+    --size: 6rem;
+}
+
+/* Scrollbar */
+
+.scrollable::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(226, 253, 255, 0.25);
+}
+
+
+.scrollable::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: var(--content-padding);
+}
+
+
+.scrollable:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-white);
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary) !important;
+
+}
+
+
+
+.noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.noise video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1);
+    mask-image: url("/images/team-shape.svg");
+    opacity: 0.4;
+    object-fit: cover;
+    mask-size: cover;
+    z-index: -1;
+    mix-blend-mode: color-dodge;
 }

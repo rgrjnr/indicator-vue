@@ -1,34 +1,36 @@
 <template>
     <div class="content">
-        <div class="panel overflow-y-scroll">
-            <h1 class="mt-12">{{ $t("team.h1") }}</h1>
+        <div class="panel panel-stretch overflow-y-scroll scrollable">
+            <h1 class="mt-14">{{ $t("team.h1") }}</h1>
             <div class="members">
                 <div
                     :class="{ 'is-active': useRoute().params.slug == member.slug, member: true }"
                     v-for="member in members"
                     @click="navigateTo('/team/' + member.slug)">
                     <div class="member-photo-wrapper">
-                        <img :src="member.photo" alt="" class="member-photo" />
+                        <img
+                            :src="member._embedded['wp:featuredmedia'][0].source_url"
+                            alt=""
+                            class="member-photo" />
                     </div>
                     <div class="member-details">
-                        <div class="member-name">{{ member.name }}</div>
+                        <div class="member-name">{{ member.title.rendered }}</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="panel has-shape">
             <NuxtPage />
-
             <svg
                 preserveAspectRatio="none"
                 class="panel-shape"
-                width="524"
-                height="714"
-                viewBox="0 0 524 714"
+                width="602"
+                height="802"
+                viewBox="0 0 602 802"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
-                    d="M477.5 713H45V215.5L1 171.5V1H477.5L523.5 47V667L477.5 713Z"
+                    d="M548.177 801H51.5263V185.831L1 136.393V1H548.177L601 52.6854V749.315L548.177 801Z"
                     stroke="#E2FDFF" />
             </svg>
         </div>
@@ -36,39 +38,14 @@
 </template>
 <script setup>
 const { locale, setLocale } = useI18n();
+const config = useRuntimeConfig();
 
-const members = [
-    {
-        photo: "/images/member-01.jpg",
-        name: "Fabio Iunis de Paula",
-        slug: "fabio",
-    },
-    {
-        photo: "/images/member-02.jpg",
-        name: "Thomas Lundgren Bittar",
-        slug: "thomas",
-    },
-    {
-        photo: "/images/member-03.jpg",
-        name: "Derek Lundgen Bittar",
-        slug: "derek",
-    },
-    {
-        photo: "/images/member-01.jpg",
-        name: "Fabio Iunis de Paula",
-        slug: "fabio1",
-    },
-    {
-        photo: "/images/member-02.jpg",
-        name: "Thomas Lundgren Bittar",
-        slug: "thomas2",
-    },
-    {
-        photo: "/images/member-03.jpg",
-        name: "Derek Lundgen Bittar",
-        slug: "derek3",
-    },
-];
+const { data: members } = await useFetch(config.public.wordpressURL + "/team?_embed", {
+    method: "get",
+});
+
+console.log(members.value[0]);
+
 useSeoMeta({
     title: "Team - Indicator Capital",
     ogTitle: "Team - Indicator Capital",
@@ -80,15 +57,10 @@ useSeoMeta({
 </script>
 
 <style lang="scss">
-h1 {
-    @apply text-4xl;
-    text-transform: lowercase;
-}
-
 .members {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    padding-right: 1rem;
     gap: 0.5rem;
 }
 
@@ -186,77 +158,6 @@ h1 {
     padding: 2rem;
     padding-left: 4rem;
     position: absolute;
-    right: 2rem;
-    left: 2rem;
-    bottom: 2rem;
-    top: 2rem;
-    overflow-y: scroll;
     z-index: 1;
-    scrollbar-gutter: stable both-edges;
-    overflow-y: hidden;
-
-    &:hover {
-        overflow-y: auto;
-    }
-}
-
-/* Scrollbar styles for WebKit browsers */
-.member-panel::-webkit-scrollbar {
-    width: 0.5em;
-}
-
-.member-panel::-webkit-scrollbar-thumb {
-    background-color: hsl(250 15% 70%);
-}
-
-.member-panel::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(250 15% 60%);
-}
-
-.member-panel::-webkit-scrollbar-track {
-    background-color: hsl(250 15% 85%);
-}
-
-.member-panel::-webkit-scrollbar-track {
-    background-color: hsl(250 15% 90%);
-}
-
-.member-panel::-webkit-scrollbar-thumb {
-    background-color: hsl(250 15% 85%);
-}
-
-.member-panel:hover::-webkit-scrollbar-track {
-    background-color: hsl(250 15% 85%);
-}
-
-.member-panel:hover::-webkit-scrollbar-thumb {
-    background-color: hsl(250 15% 70%);
-}
-
-.noise {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        filter: grayscale(1);
-        mask-image: url("/images/team-shape.svg");
-        opacity: 0.4;
-        object-fit: cover;
-        mask-size: cover;
-        z-index: -1;
-    }
 }
 </style>
