@@ -7,7 +7,7 @@
 }
 
 body {
-    @apply bg-black text-white;
+
     font-family: 'SK Concretica';
     width: 100vw;
     height: 100vh;
@@ -15,9 +15,13 @@ body {
     align-items: stretch;
     justify-content: stretch;
     padding: 3rem;
+
+    background-color: var(--color-black);
+    color: var(--color-white);
     --rgb-white: 226 253 255;
     --rgb-primary: 255 218 41;
-    --rgb-black: 19 20 21;
+    --rgb-black: 13 23 26;
+
     --color-white: rgb(var(--rgb-white));
     --color-primary: rgb(var(--rgb-primary));
     --color-black: rgb(var(--rgb-black));
@@ -109,7 +113,7 @@ h2 {
     right: 0;
     left: 0;
     bottom: 0;
-    padding: 1rem;
+    padding: var(--content-padding);
 }
 
 .panel-inside {

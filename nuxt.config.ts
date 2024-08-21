@@ -15,10 +15,18 @@ export default defineNuxtConfig({
     i18n: {
         strategy: "prefix_except_default",
         defaultLocale: "en",
+        locales: ["en", "pt"],
         detectBrowserLanguage: {
             useCookie: true,
             cookieKey: "i18n_redirected",
             redirectOn: "root", // recommended
+        },
+        customRoutes: "config",
+        pages: {
+            thesis: {
+                en: "/thesis",
+                pt: "/tese",
+            },
         },
     },
     app: {
@@ -26,11 +34,18 @@ export default defineNuxtConfig({
         // layoutTransition: { name: 'layout', mode: 'out-in' },
 
         head: {
-            charset: "utf-8",
-            viewport: "width=device-width, initial-scale=1",
+            meta: [
+                {
+                    charset: "utf-8",
+                },
+                {
+                    name: "viewport",
+                    content: "width=device-width, initial-scale=1",
+                },
+            ],
         },
     },
-
+    plugins: [{ src: "~/plugins/gsap.js", mode: "client" }],
     runtimeConfig: {
         public: {
             wordpressURL: "https://rogerjunior.com/stage/wp-json/wp/v2",

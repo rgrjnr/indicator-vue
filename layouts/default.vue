@@ -1,5 +1,5 @@
 <template>
-    <div id="website" :class="[`page-${useRoute().name}`]">
+    <div id="website" :class="[`page-${useRoute().name.split('_')[0]}`]">
         <NuxtLoadingIndicator />
         <nav
             class="flex items-center justify-between px-6 py-4 border-b-[1px] border-solid border-white text-sm relative">
@@ -101,6 +101,8 @@ body {
     position: relative;
     overflow: hidden;
     background-image: url("/images/bg.svg");
+    background-size: 100vw;
+    animation: background-animation 45s linear infinite;
 
     // flicker
     &::after {
@@ -113,7 +115,7 @@ body {
         right: 0;
         background: transparentize($screen-background, 0.9);
         opacity: 0;
-        z-index: 2;
+        z-index: 10002;
         pointer-events: none;
     }
 
@@ -135,9 +137,18 @@ body {
                 transparentize(#00ff00, 0.98),
                 transparentize(#0000ff, 0.94)
             );
-        z-index: 2;
+        z-index: 10002;
         background-size: 100% 2px, 3px 100%;
         pointer-events: none;
+    }
+}
+
+@keyframes background-animation {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100vw 0;
     }
 }
 
@@ -230,6 +241,47 @@ body::after {
     }
     100% {
         visibility: hidden;
+    }
+}
+
+@keyframes flicker-off {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+        #{percentage($i * math.div(1, $steps))} {
+            opacity: random();
+        }
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes flicker-scale {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+        #{percentage($i * math.div(1, $steps))} {
+            transform: scale(#{random()});
+        }
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes flicker-on {
+    $steps: 20;
+
+    @for $i from 0 through $steps {
+        #{percentage($i * math.div(1, $steps))} {
+            opacity: random();
+        }
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 </style>

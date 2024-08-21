@@ -1,35 +1,28 @@
 <svg width="1440" height="860" viewBox="0 0 1440 860" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_158_293)">
-<rect x="985.535" y="141.145" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1361.14" y="810.735" width="2" height="2" fill="#E2FDFF"/>
-<rect x="392.236" y="486.442" width="2" height="2" fill="#E2FDFF"/>
-<rect x="773.705" y="667.335" width="2" height="2" fill="#E2FDFF"/>
-<rect x="45" y="488.751" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1266.03" y="839.623" width="2" height="2" fill="#E2FDFF"/>
-<rect x="734.987" y="635.589" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1104.58" y="226.103" width="2" height="2" fill="#E2FDFF"/>
-<rect x="279.016" y="616.429" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1235.05" y="858.108" width="2" height="2" fill="#E2FDFF"/>
-<rect x="941.501" y="485.404" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1148.27" y="180.452" width="2" height="2" fill="#E2FDFF"/>
-<rect x="811.427" y="355.553" width="2" height="2" fill="#E2FDFF"/>
-<rect x="81.6064" y="453.555" width="2" height="2" fill="#E2FDFF"/>
-<rect x="746.271" y="205.213" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1434.37" y="502.052" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1384.97" y="589.118" width="2" height="2" fill="#E2FDFF"/>
-<rect x="637.562" y="661.415" width="2" height="2" fill="#E2FDFF"/>
-<rect x="362.507" y="622.811" width="2" height="2" fill="#E2FDFF"/>
-<rect x="1320.55" y="738.907" width="2" height="2" fill="#E2FDFF"/>
-<rect x="523.059" y="131" width="2" height="2" fill="#E2FDFF"/>
-<rect x="363.431" y="497.802" width="2" height="2" fill="#E2FDFF"/>
-<rect x="666.02" y="505.457" width="2" height="2" fill="#E2FDFF"/>
-<rect x="167.044" y="245.451" width="2" height="2" fill="#E2FDFF"/>
-<rect x="439.394" y="717.875" width="2" height="2" fill="#E2FDFF"/>
-<rect x="652.22" y="262.316" width="2" height="2" fill="#E2FDFF"/>
-</g>
-<defs>
-<clipPath id="clip0_158_293">
-<rect width="1512.52" height="860" fill="white" transform="translate(-43)"/>
-</clipPath>
-</defs>
+    <rect x="985.535" y="141.145" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1361.14" y="810.735" width="2" height="2" fill="#E2FDFF" />
+    <rect x="392.236" y="486.442" width="2" height="2" fill="#E2FDFF" />
+    <rect x="773.705" y="667.335" width="2" height="2" fill="#E2FDFF" />
+    <rect x="45" y="488.751" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1266.03" y="839.623" width="2" height="2" fill="#E2FDFF" />
+    <rect x="734.987" y="635.589" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1104.58" y="226.103" width="2" height="2" fill="#E2FDFF" />
+    <rect x="279.016" y="616.429" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1235.05" y="858.108" width="2" height="2" fill="#E2FDFF" />
+    <rect x="941.501" y="485.404" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1148.27" y="180.452" width="2" height="2" fill="#E2FDFF" />
+    <rect x="811.427" y="355.553" width="2" height="2" fill="#E2FDFF" />
+    <rect x="81.6064" y="453.555" width="2" height="2" fill="#E2FDFF" />
+    <rect x="746.271" y="205.213" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1434.37" y="502.052" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1384.97" y="589.118" width="2" height="2" fill="#E2FDFF" />
+    <rect x="637.562" y="661.415" width="2" height="2" fill="#E2FDFF" />
+    <rect x="362.507" y="622.811" width="2" height="2" fill="#E2FDFF" />
+    <rect x="1320.55" y="738.907" width="2" height="2" fill="#E2FDFF" />
+    <rect x="523.059" y="131" width="2" height="2" fill="#E2FDFF" />
+    <rect x="363.431" y="497.802" width="2" height="2" fill="#E2FDFF" />
+    <rect x="666.02" y="505.457" width="2" height="2" fill="#E2FDFF" />
+    <rect x="167.044" y="245.451" width="2" height="2" fill="#E2FDFF" />
+    <rect x="439.394" y="717.875" width="2" height="2" fill="#E2FDFF" />
+    <rect x="652.22" y="262.316" width="2" height="2" fill="#E2FDFF" />
 </svg>

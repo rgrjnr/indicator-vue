@@ -67,8 +67,6 @@ const { data: items } = await useFetch(config.public.wordpressURL + "/press?_emb
     method: "get",
 });
 
-console.log(items.value[0]);
-
 useSeoMeta({
     title: "Media - Indicator Capital",
     ogTitle: "Media - Indicator Capital",

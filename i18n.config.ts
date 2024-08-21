@@ -26,7 +26,15 @@ export default defineI18nConfig(() => ({
                     email: "Email",
                 },
             },
-            startups: { title: "Startups" },
+            startups: {
+                title: "Startups",
+                tags: {
+                    short_description: "Short description",
+                    long_description: "Long description",
+                    problem_x_solution_description: "Problem x Solution",
+                    founders: "Founders",
+                },
+            },
             media: { title: "Media", h1: "Media" },
             months: [
                 "January",

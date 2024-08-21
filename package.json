@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/fonts": "^0.7.1",
     "@nuxtjs/i18n": "latest",
+    "gsap": "plugins/gsap-bonus.tgz",
     "nuxt": "^3.12.4",
     "three": "0.130.1",
     "vue": "latest",

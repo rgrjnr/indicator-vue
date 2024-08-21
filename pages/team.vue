@@ -1,12 +1,12 @@
 <template>
     <div class="content">
         <div class="panel panel-stretch overflow-y-scroll scrollable">
-            <h1 class="mt-14">{{ $t("team.h1") }}</h1>
+            <h1 class="mt-14 mb-4">{{ $t("team.h1") }}</h1>
             <div class="members">
                 <div
                     :class="{ 'is-active': useRoute().params.slug == member.slug, member: true }"
                     v-for="member in members"
-                    @click="navigateTo('/team/' + member.slug)">
+                    @click="navigateTo(localePath('/team/' + member.slug))">
                     <div class="member-photo-wrapper">
                         <img
                             :src="member._embedded['wp:featuredmedia'][0].source_url"
@@ -39,12 +39,11 @@
 <script setup>
 const { locale, setLocale } = useI18n();
 const config = useRuntimeConfig();
+const localePath = useLocalePath();
 
 const { data: members } = await useFetch(config.public.wordpressURL + "/team?_embed", {
     method: "get",
 });
-
-console.log(members.value[0]);
 
 useSeoMeta({
     title: "Team - Indicator Capital",
@@ -59,7 +58,7 @@ useSeoMeta({
 <style lang="scss">
 .members {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     padding-right: 1rem;
     gap: 0.5rem;
 }
