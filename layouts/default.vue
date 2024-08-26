@@ -66,9 +66,7 @@
     </div>
 </template>
 
-<script setup>
-const on = ref(true);
-</script>
+<script setup></script>
 
 <style lang="scss">
 @use "sass:math";
@@ -106,7 +104,7 @@ body {
 
     // flicker
     &::after {
-        content: " ";
+        // content: " ";
         display: block;
         position: absolute;
         top: 0;
@@ -120,7 +118,7 @@ body {
     }
 
     &::before {
-        content: " ";
+        // content: " ";
         display: block;
         position: absolute;
         top: 0;
@@ -273,6 +271,9 @@ body::after {
 
 @keyframes flicker-on {
     $steps: 20;
+    0% {
+        opacity: 0;
+    }
 
     @for $i from 0 through $steps {
         #{percentage($i * math.div(1, $steps))} {

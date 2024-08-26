@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="panel panel-stretch overflow-y-scroll scrollable">
+        <div class="panel panel-stretch overflow-y-scroll scrollable panel-main">
             <h1 class="mt-14 mb-4">{{ $t("team.h1") }}</h1>
             <div class="members">
                 <div
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel has-shape">
+        <div class="panel has-shape panel-secondary">
             <NuxtPage />
             <svg
                 preserveAspectRatio="none"
@@ -37,22 +37,8 @@
     </div>
 </template>
 <script setup>
-const { locale, setLocale } = useI18n();
-const config = useRuntimeConfig();
 const localePath = useLocalePath();
-
-const { data: members } = await useFetch(config.public.wordpressURL + "/team?_embed", {
-    method: "get",
-});
-
-useSeoMeta({
-    title: "Team - Indicator Capital",
-    ogTitle: "Team - Indicator Capital",
-    description: "This is Indicator Capital, let me tell you all about it.",
-    ogDescription: "This is Indicator Capital, let me tell you all about it.",
-    ogImage: "https://example.com/image.png",
-    twitterCard: "summary_large_image",
-});
+const { data: members } = await $useFetch("/team");
 </script>
 
 <style lang="scss">
@@ -158,5 +144,62 @@ useSeoMeta({
     padding-left: 4rem;
     position: absolute;
     z-index: 1;
+}
+
+@media screen and (max-width: 80rem) {
+    .page-team,
+    .page-team-slug {
+        .content {
+            padding: 0;
+        }
+        .panel {
+            padding: var(--content-padding);
+        }
+        .panel-secondary {
+            aspect-ratio: unset;
+            flex: 1;
+        }
+
+        .panel-inside {
+            mask-image: unset;
+        }
+
+        .noise {
+            display: none;
+        }
+    }
+
+    .page-team {
+        .panel-secondary {
+            display: none;
+        }
+        .content {
+            padding: 0;
+        }
+        .panel {
+            padding: var(--content-padding);
+        }
+    }
+
+    .page-team-slug {
+        .panel-main {
+            display: none;
+        }
+        .panel-shape {
+            display: none;
+        }
+
+        .member-tags {
+            margin: 0;
+            margin-bottom: 10rem;
+        }
+    }
+}
+
+@media screen and (max-width: 40rem) {
+    .members {
+        grid-template-columns: 1fr 1fr;
+        padding-bottom: 3rem;
+    }
 }
 </style>

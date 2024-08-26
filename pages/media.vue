@@ -1,9 +1,12 @@
 <template>
     <div class="content">
-        <div class="panel">
+        <div class="panel panel-main">
             <div class="tabs mt-14">
                 <div class="tabs-header text-xl">
-                    <div :class="{ 'tab-title': true, active: showing == tab }" v-for="tab in tabs">
+                    <div
+                        :class="{ 'tab-title': true, active: showing == tab }"
+                        v-for="tab in tabs"
+                        @click="showing = tab">
                         {{ $t(tab) }}
                     </div>
                 </div>
@@ -11,7 +14,7 @@
                     <div class="releases scrollable">
                         <div
                             class="release"
-                            @click="navigateTo('/media/' + release.slug)"
+                            @click="navigateTo(localePath('/media/' + release.slug))"
                             v-for="release in items.filter((media) => media.type == 'release')">
                             <div class="release-thumbnail-wrapper" v-if="release._embedded">
                                 <img
@@ -41,7 +44,7 @@
                     @click="navigateTo('/media/' + media.slug)"></div>
             </div>
         </div>
-        <div class="panel has-shape">
+        <div class="panel has-shape panel-secondary">
             <NuxtPage />
             <svg
                 preserveAspectRatio="none"
@@ -59,22 +62,12 @@
     </div>
 </template>
 <script setup>
-const config = useRuntimeConfig();
+const localePath = useLocalePath();
 const showing = ref("releases");
 const tabs = ["releases", "news"];
 
-const { data: items } = await useFetch(config.public.wordpressURL + "/press?_embed", {
-    method: "get",
-});
-
-useSeoMeta({
-    title: "Media - Indicator Capital",
-    ogTitle: "Media - Indicator Capital",
-    description: "This is Indicator Capital, let me tell you all about it.",
-    ogDescription: "This is Indicator Capital, let me tell you all about it.",
-    ogImage: "https://example.com/image.png",
-    twitterCard: "summary_large_image",
-});
+const { data: items } = await $useFetch("/press");
+setSeo("media");
 </script>
 
 <style lang="scss">
@@ -90,14 +83,23 @@ useSeoMeta({
 .release {
     border: 1px solid var(--color-white);
     display: flex;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-white);
+        color: var(--color-black);
+        animation: flicker-on 100ms linear;
+        animation-fill-mode: forwards;
+    }
 }
 
 .release-thumbnail-wrapper {
     border-right: 1px solid var(--color-white);
+    max-width: min(20rem, 50%);
+    aspect-ratio: 5/2;
+    overflow: hidden;
 }
 .release-thumbnail {
-    max-width: 20rem;
-    aspect-ratio: 4/2;
     object-fit: cover;
 }
 
@@ -115,9 +117,56 @@ useSeoMeta({
 
 .tab-title {
     opacity: 0.5;
+    cursor: pointer;
 }
 
 .tab-title.active {
     opacity: 1;
+}
+
+@media screen and (max-width: 80rem) {
+    .page-media {
+        .panel-secondary {
+            display: none;
+        }
+        .content {
+            padding: 0;
+        }
+        .panel-main {
+            padding: var(--content-padding);
+        }
+    }
+
+    .page-media-slug {
+        .panel-main {
+            display: none;
+        }
+        .panel-shape {
+            display: none;
+        }
+        .content {
+            padding: 0;
+        }
+        .panel-inside {
+            mask-image: unset;
+        }
+        .has-shape {
+            aspect-ratio: unset;
+            overflow: unset;
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 40rem) {
+    .release {
+        flex-direction: column;
+    }
+
+    .release-thumbnail-wrapper {
+        width: 100%;
+        max-width: unset;
+        border-bottom: 1px solid var(--color-white);
+    }
 }
 </style>

@@ -1,39 +1,40 @@
 <template>
     <div class="content">
-        <div class="panel panel-stretch overflow-y-visible" ref="space">
+        <div class="panel panel-stretch overflow-y-visible panel-main">
             <div id="filters">
-                <div
-                    v-for="(industry, i) in industries"
-                    :key="industry.id"
-                    :class="{
-                        'filter-item': true,
-                        active: currentIndustry == industry.id,
-                    }"
-                    @click="currentIndustry = industry.id">
-                    {{ industry.name }}
-                </div>
-                <br />
-                <br />
-                <div
-                    v-for="(status, i) in statuses"
-                    :key="status.id"
-                    :class="{
-                        'filter-item': true,
-                        active: currentStatus == status.id,
-                    }"
-                    @click="changeCurrentStatus(status.id)">
-                    {{ status.name }}
+                <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
+                    {{ $t("Filters") }}
+                    <svg
+                        viewBox="0 0 431 161"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="none">
+                        <path
+                            d="M401.5 160.5H1V1H430.5V131.5L401.5 160.5Z"
+                            vector-effect="non-scaling-stroke" />
+                    </svg>
+                </button>
+                <div :class="{ 'filter-group': true, hide: !showFilter }" v-for="group in groups">
+                    <div class="uppercase opacity-50 text-sm">{{ group.name }}</div>
+                    <div
+                        v-for="(tag, i) in tags.filter((t) => t.parent == group.id)"
+                        :key="tag.id"
+                        :class="{
+                            'filter-item': true,
+                            active: currentTag == tag.id,
+                        }"
+                        @click="changeFilter(tag.id)">
+                        {{ tag.name }}
+                    </div>
                 </div>
             </div>
             <!-- Lines -->
             <div
                 v-for="(line, i) in lines"
                 class="constellation-line"
-                :style="`transform: translate(${line.x - 33}px, ${line.y - 104}px) rotate(${
-                    line.angle
-                }deg) scaleX(${line.scaleX})`"></div>
+                :style="`transform: translate(${line.x}px, ${line.y}px) rotate(${line.angle}deg) scaleX(${line.scaleX})`"></div>
 
-            <div class="startups-space" :style="`transform: rotateY(${rotation}deg)`">
+            <div class="startups-space" :style="`transform: rotateY(${rotation}deg)`" ref="space">
                 <!-- Stars -->
                 <div
                     v-for="startup in startups"
@@ -44,9 +45,12 @@
                         'startup-wrapper': true,
                         'select-none': true,
                         active: useRoute().params.slug == startup.slug,
-                        'current-status': startup.status.includes(currentStatus),
+                        'current-group': startup.group.includes(currentTag),
                     }"
-                    @click="navigateTo(localePath('/startups/' + startup.slug))"
+                    @click="
+                        navigateTo(localePath('/startups/' + startup.slug));
+                        showFilter = false;
+                    "
                     :style="
                         startup.position &&
                         `transform: translate3d(${startup.position[0] || 0}px, ${
@@ -94,48 +98,28 @@
     </div>
 </template>
 <script setup>
-const { locale } = useI18n();
-const localePath = useLocalePath();
 const space = ref();
 const rotation = ref(0);
-const currentIndustry = ref(null);
-const currentStatus = ref(74);
+const currentTag = ref();
 const constellation = ref([]);
 const startupRef = ref();
 const lines = ref([]);
 const rotating = ref(false);
 const extraRotationSpeed = ref(0);
 const rotationTime = ref(0);
+const showFilter = ref(false);
 
-useSeoMeta({
-    title: "Indicator Capital",
-    ogTitle: "Indicator Capital",
-    description: "This is Indicator Capital, let me tell you all about it.",
-    ogDescription: "This is Indicator Capital, let me tell you all about it.",
-    ogImage: "https://example.com/image.png",
-    twitterCard: "summary_large_image",
-});
+const { data: startups } = await $useFetch("/startups");
+const { data: tags } = await $useFetch("/group");
 
-const config = useRuntimeConfig();
+const groups = tags.value.filter((g) => g.parent == 0);
 
-const { data: startups } = await useFetch(
-    config.public.wordpressURL + "/startups?_embed&per_page=100&lang=" + locale.value,
-    {
-        method: "get",
-    }
-);
-const { data: statuses } = await useFetch(
-    config.public.wordpressURL + "/status?lang=" + locale.value,
-    {
-        method: "get",
-    }
-);
-const { data: industries } = await useFetch(
-    config.public.wordpressURL + "/industry?lang=" + locale.value,
-    {
-        method: "get",
-    }
-);
+setSeo("startups");
+
+function randomBetween(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 const reorderConstellation = () => {
     if (constellation.value.length < 2) return;
@@ -185,7 +169,7 @@ function ease(x) {
 }
 
 const render = () => {
-    rotation.value += 0.01 + extraRotationSpeed.value;
+    rotation.value += 0.05 + extraRotationSpeed.value;
 
     if (rotating.value) {
         const duration = 100;
@@ -228,11 +212,11 @@ const render = () => {
     requestAnimationFrame(render);
 };
 
-const changeCurrentStatus = (statusId) => {
-    currentStatus.value = statusId;
+const changeFilter = (tag) => {
+    currentTag.value = tag;
     constellation.value = [];
     startups.value.forEach((startup, i) => {
-        if (startup.status.includes(statusId)) {
+        if (startup.group.includes(tag)) {
             constellation.value.push(startupRef.value[i]);
         }
     });
@@ -244,24 +228,22 @@ const changeCurrentStatus = (statusId) => {
 };
 
 onMounted(() => {
-    const box = space.value.getBoundingClientRect();
-    startups.value.forEach((item, i) => {
-        startups.value[i].position = [
-            Math.random() * box.width,
-            Math.random() * box.height,
-            Math.random() * box.width - box.width / 2,
-        ];
-    });
+    if (process.client && window.innerWidth > 80 * 16) {
+        const box = space.value.getBoundingClientRect();
+        startups.value.forEach((item, i) => {
+            startups.value[i].position = [
+                randomBetween(10, box.width - 10),
+                randomBetween(0, box.height - 10),
+                randomBetween(-1 * box.width, box.width) / 3,
+            ];
+        });
 
-    render();
-    changeCurrentStatus(74);
+        render();
+    }
 });
 </script>
 
 <style lang="scss">
-#filters {
-    display: grid;
-}
 .constellation-mark {
     width: 1rem;
     height: 1rem;
@@ -273,8 +255,10 @@ onMounted(() => {
     height: 1px;
     width: 1px;
     background-color: var(--color-white);
-    position: absolute;
+    position: fixed;
     transform-origin: left;
+    top: 4rem;
+    left: 4rem;
 }
 .filter-item {
     display: inline;
@@ -345,8 +329,9 @@ onMounted(() => {
 }
 
 .startup-star {
-    width: 8rem;
-    height: 8rem;
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: auto;
     background-color: var(--color-white);
     border-radius: 50%;
     display: flex;
@@ -364,6 +349,11 @@ onMounted(() => {
 .startups-space {
     transform-style: preserve-3d;
     transform-origin: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .startups-panel {
@@ -371,6 +361,7 @@ onMounted(() => {
     background-size: 100% 100%;
     max-width: 30rem;
     margin: calc(-1 * var(--content-padding) - 1px);
+    margin-left: 0;
     padding: var(--content-padding);
     transform: translateX(100%);
     transition: all 300ms ease-out;
@@ -396,7 +387,7 @@ onMounted(() => {
     }
 }
 
-.current-status {
+.current-group {
     .startup-star {
         background-color: var(--color-primary);
     }
@@ -410,5 +401,98 @@ onMounted(() => {
 
 #filters {
     position: absolute;
+    display: grid;
+    z-index: 100;
+    gap: 1rem;
+    min-width: 10rem;
+}
+
+.filter-group.hide {
+    display: none;
+}
+.filter-group {
+    display: grid;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-white);
+    padding: 1rem;
+    animation-name: flicker-on;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+.filter-group {
+    opacity: 0;
+}
+
+.filter-group:nth-of-type(2) {
+    animation-delay: 100ms;
+}
+.filter-group:nth-of-type(3) {
+    animation-delay: 200ms;
+}
+.filter-group:nth-of-type(4) {
+    animation-delay: 300ms;
+}
+
+@media screen and (max-width: 80rem) {
+    .panel-main {
+        overflow-y: scroll;
+    }
+    .startups-space {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        gap: 3px;
+
+        &:has(.current-group) {
+            .startup-wrapper:not(.current-group) {
+                display: none;
+            }
+        }
+    }
+
+    .current-group .startup-star {
+        background-color: transparent;
+    }
+
+    .startup-wrapper {
+        position: relative;
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1/1;
+
+        &:hover .startup-logo {
+            filter: brightness(0);
+        }
+    }
+
+    .startup-star {
+        transform: translate(-50%, -50%) scale(1);
+        border-radius: 0;
+        background-color: transparent;
+        border: 1px solid var(--color-white);
+    }
+
+    .startup-logo {
+        opacity: 1;
+        max-width: 15rem;
+        width: 100%;
+        filter: brightness(0) invert(1);
+    }
+
+    .startups-panel {
+        display: none;
+    }
+
+    .page-startups-slug {
+        .panel-main {
+            display: none;
+        }
+        .startups-panel {
+            display: block;
+            max-width: unset;
+        }
+    }
 }
 </style>

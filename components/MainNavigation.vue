@@ -27,13 +27,13 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 const availableLocales = computed(() => {
     return locales.value.filter((i) => i.code !== locale.value);
 });
-const localePath = useLocalePath();
 const pages = [
     { slug: "home", path: "/" },
     { slug: "thesis", path: "/thesis" },

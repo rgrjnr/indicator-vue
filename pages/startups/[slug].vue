@@ -1,7 +1,20 @@
 <template>
     <div class="startup-panel scrollable pl-10">
+        <nuxt-link :to="localePath('/startups')" class="shape-btn shape-btn-sm mb-4 back-btn">
+            {{ $t("Go back") }}
+
+            <svg
+                viewBox="0 0 431 161"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none">
+                <path
+                    d="M401.5 160.5H1V1H430.5V131.5L401.5 160.5Z"
+                    vector-effect="non-scaling-stroke" />
+            </svg>
+        </nuxt-link>
         <h2 class="lowercase">
-            <span class="block text-primary text-lg mb-4">
+            <span class="block text-primary text-lg mb-4" ref="title">
                 {{ startup[0].title.rendered }}
             </span>
         </h2>
@@ -34,6 +47,8 @@
 <script setup>
 const config = useRuntimeConfig();
 const route = useRoute();
+const { $gsap } = useNuxtApp();
+const title = ref();
 
 const { data: startup } = await useFetch(
     config.public.wordpressURL + "/startups?slug=" + route.params.slug,
@@ -41,6 +56,20 @@ const { data: startup } = await useFetch(
         method: "get",
     }
 );
+
+onMounted(() => {
+    $gsap.to(title.value, {
+        duration: 1,
+        scrambleText: startup.value[0].title.rendered,
+        delay: 0.5,
+    }); //or customize things:
+});
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@media screen and (min-width: 80rem) {
+    .back-btn {
+        display: none;
+    }
+}
+</style>
