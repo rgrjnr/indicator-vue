@@ -1,7 +1,7 @@
 <template>
     <div class="member-panel panel-inside scrollable">
         <nuxt-link :to="localePath('/team')" class="shape-btn shape-btn-sm mb-4 back-btn">
-            {{ $t("Go back") }}
+            {{ $t("go_back") }}
 
             <svg
                 viewBox="0 0 431 161"

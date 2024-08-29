@@ -39,6 +39,8 @@
 <script setup>
 const localePath = useLocalePath();
 const { data: members } = await $useFetch("/team");
+
+setSeo("team");
 </script>
 
 <style lang="scss">

@@ -7,11 +7,11 @@
                         :class="{ 'tab-title': true, active: showing == tab }"
                         v-for="tab in tabs"
                         @click="showing = tab">
-                        {{ $t(tab) }}
+                        {{ $t(`media.${tab}`) }}
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="releases scrollable">
+                    <div class="releases scrollable" v-if="showing == 'releases'">
                         <div
                             class="release"
                             @click="navigateTo(localePath('/media/' + release.slug))"
@@ -35,13 +35,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="releases scrollable" v-if="showing == 'news'">
+                        <div
+                            class="release"
+                            @click="navigateTo(localePath('/media/' + item.slug))"
+                            v-for="item in items.filter((item) => item.type == 'media')">
+                            <div class="release-info pb-4">
+                                <div class="release-date opacity-50">
+                                    {{ $t("months." + new Date(item.date).getMonth()) }}
+                                    {{ new Date(item.date).getFullYear() }} -
+                                    {{
+                                        sources.filter((source) =>
+                                            item.source.includes(source.id)
+                                        )[0]?.name
+                                    }}
+                                </div>
+                                <div class="release-title">{{ item.title.rendered }}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="medias">
-                <div
-                    :class="{ 'is-active': useRoute().params.slug == media.slug, media: true }"
-                    v-for="media in medias"
-                    @click="navigateTo('/media/' + media.slug)"></div>
             </div>
         </div>
         <div class="panel has-shape panel-secondary">
@@ -67,6 +80,7 @@ const showing = ref("releases");
 const tabs = ["releases", "news"];
 
 const { data: items } = await $useFetch("/press");
+const { data: sources } = await $useFetch("/source");
 setSeo("media");
 </script>
 

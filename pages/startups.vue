@@ -3,7 +3,7 @@
         <div class="panel panel-stretch overflow-y-visible panel-main">
             <div id="filters">
                 <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
-                    {{ $t("Filters") }}
+                    {{ $t("startups.filters") }}
                     <svg
                         viewBox="0 0 431 161"
                         fill="none"
@@ -114,7 +114,7 @@ const { data: tags } = await $useFetch("/group");
 
 const groups = tags.value.filter((g) => g.parent == 0);
 
-setSeo("startups");
+if (!useRoute().name.includes("slug")) setSeo("startups");
 
 function randomBetween(min, max) {
     // min and max included
@@ -220,6 +220,8 @@ const changeFilter = (tag) => {
             constellation.value.push(startupRef.value[i]);
         }
     });
+
+    showFilter.value = false;
 
     reorderConstellation();
     rotating.value = true;

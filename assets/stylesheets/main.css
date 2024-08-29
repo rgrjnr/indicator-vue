@@ -6,9 +6,14 @@
     box-sizing: border-box;
 }
 
-body {
+@font-face {
+    font-family: Indicator;
+    src: url(/fonts/IndicatorSK-Regular.woff);
+    font-weight: bold;
+}
 
-    font-family: 'SK Concretica';
+body {
+    font-family: 'Indicator';
     width: 100vw;
     height: 100vh;
     display: flex;

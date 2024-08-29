@@ -1,24 +1,29 @@
-export const setSeo = async (slug) => {
+export const setSeo = async (slug, type = "pages", options = {}) => {
     const { locale } = useI18n();
     const config = useRuntimeConfig();
 
-    const { data: page } = await useFetch("/pages", {
+    const { data: page } = await useFetch("/" + type, {
         baseURL: config.public.wordpressURL,
         method: "get",
         query: {
-            _embed: true,
-            per_page: 100,
             lang: locale.value,
             slug,
+            _embed: true,
         },
     });
 
-    useSeoMeta({
-        title: () => page.value[0]?.title?.rendered + " - Indicator Capital" || "",
-        ogTitle: () => page.value[0]?.title?.rendered + " - Indicator Capital" || "",
-        description: () => page.value[0]?.content?.rendered || "",
-        ogDescription: () => page.value[0]?.content?.rendered || "",
-        ogImage: "https://example.com/image.png",
-        twitterCard: "summary_large_image",
+    const title = page.value[0]?.title?.rendered;
+    const description = page.value[0]?.short_description || page.value[0]?.content?.rendered;
+
+    defineOgImageComponent("Default", {
+        title,
+        type,
+        description,
+    });
+
+    useHead({
+        title: () => title,
+        description: () => description,
+        titleTemplate: options.resetTemplate ? "%s" : "%s %separator %siteName",
     });
 };

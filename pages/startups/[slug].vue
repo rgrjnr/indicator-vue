@@ -1,7 +1,7 @@
 <template>
     <div class="startup-panel scrollable pl-10">
         <nuxt-link :to="localePath('/startups')" class="shape-btn shape-btn-sm mb-4 back-btn">
-            {{ $t("Go back") }}
+            {{ $t("go_back") }}
 
             <svg
                 viewBox="0 0 431 161"
@@ -33,12 +33,19 @@
                 </div>
             </div>
             <img src="/images/separator.svg" class="w-full mb-4" />
-            <p class="mb-2">{{ startup[0].long_description }}</p>
-            <template v-if="startup[0].problem_x_solution_description">
-                <div class="uppercase opacity-50 text-sm">
-                    {{ $t("Problem x Solution") }}
-                </div>
-                <p class="mb-2">{{ startup[0].problem_x_solution_description }}</p>
+
+            <template
+                v-for="tag in [
+                    'long_description',
+                    'product_description',
+                    'problem_x_solution_description',
+                ]">
+                <template v-if="startup[0][tag]">
+                    <div class="uppercase opacity-50 text-sm mt-4">
+                        {{ $t(`startups.${tag}`) }}
+                    </div>
+                    <p class="mb-2">{{ startup[0][tag] }}</p>
+                </template>
             </template>
         </div>
     </div>
@@ -50,19 +57,20 @@ const route = useRoute();
 const { $gsap } = useNuxtApp();
 const title = ref();
 
-const { data: startup } = await useFetch(
-    config.public.wordpressURL + "/startups?slug=" + route.params.slug,
-    {
-        method: "get",
-    }
-);
+const { data: startup } = await $useFetch("/startups", {
+    query: {
+        slug: route.params.slug,
+    },
+});
+
+setSeo(route.params.slug, "startups");
 
 onMounted(() => {
     $gsap.to(title.value, {
         duration: 1,
         scrambleText: startup.value[0].title.rendered,
         delay: 0.5,
-    }); //or customize things:
+    });
 });
 </script>
 

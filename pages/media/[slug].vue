@@ -1,7 +1,7 @@
 <template>
     <div class="panel-inside scrollable">
         <nuxt-link :to="localePath('/media')" class="shape-btn shape-btn-sm mb-4 back-btn">
-            {{ $t("Go back") }}
+            {{ $t("go_back") }}
 
             <svg
                 viewBox="0 0 431 161"
@@ -31,6 +31,8 @@ const { data: media } = await useFetch(
         method: "get",
     }
 );
+
+setSeo(route.params.slug, "press");
 </script>
 
 <style lang="scss">

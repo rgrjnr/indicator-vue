@@ -12,14 +12,21 @@
   "dependencies": {
     "@nuxt/fonts": "^0.7.1",
     "@nuxtjs/i18n": "latest",
+    "@nuxtjs/seo": "latest",
+    "axios": "^1.7.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
     "gsap": "plugins/gsap-bonus.tgz",
     "nuxt": "^3.12.4",
+    "nuxt-og-image": "latest",
+    "openai": "^4.56.1",
     "three": "0.130.1",
     "vue": "latest",
     "vue-markdown-render": "^2.2.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "sharp": "^0.33.5"
   }
 }

@@ -244,13 +244,8 @@ const content = ref();
 const h1 = ref();
 const playerShoot = ref(false);
 
-useSeoMeta({
-    title: "Indicator Capital",
-    ogTitle: "Indicator Capital",
-    description: "This is Indicator Capital, let me tell you all about it.",
-    ogDescription: "This is Indicator Capital, let me tell you all about it.",
-    ogImage: "https://example.com/image.png",
-    twitterCard: "summary_large_image",
+setSeo("home", "pages", {
+    resetTemplate: true,
 });
 
 const shipAcceleration = 0.1;

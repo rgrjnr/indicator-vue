@@ -12,7 +12,7 @@
                 :to="localePath(`/apply`)"
                 class="nav-link block px-3 py-2 uppercase text-xs">
                 <span class="bg-primary text-black">
-                    {{ $t("apply") }}
+                    {{ $t("apply.title") }}
                 </span>
             </router-link>
         </li>
@@ -36,7 +36,7 @@ const availableLocales = computed(() => {
 });
 const pages = [
     { slug: "home", path: "/" },
-    { slug: "thesis", path: "/thesis" },
+    // { slug: "thesis", path: "/thesis" },
     { slug: "team", path: "/team" },
     { slug: "startups", path: "/startups" },
     { slug: "media", path: "/media" },

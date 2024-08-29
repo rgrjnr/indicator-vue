@@ -1,7 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: "2024-04-03",
-    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/i18n", "@nuxt/fonts"],
+    site: {
+        url: "http://localhost:3000/",
+        name: "Indicator Capital",
+        description: "Boosting deep tech heores",
+    },
+    ogImage: {
+        fonts: [
+            {
+                name: "Indicator",
+                path: "/fonts/IndicatorSK-Regular.woff",
+            },
+        ],
+        defaults: {
+            extension: "jpeg",
+        },
+    },
+    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/i18n", "@nuxt/fonts", "@nuxtjs/seo", "nuxt-og-image"],
     devtools: { enabled: true },
     fonts: {
         families: [
@@ -34,6 +50,9 @@ export default defineNuxtConfig({
         // layoutTransition: { name: 'layout', mode: 'out-in' },
 
         head: {
+            templateParams: {
+                separator: "/",
+            },
             meta: [
                 {
                     charset: "utf-8",
