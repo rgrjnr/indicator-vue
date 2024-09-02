@@ -1,4 +1,4 @@
-export const $useFetch = (request, opts) => {
+export const $useFetch = (request, opts = {}) => {
     const { locale } = useI18n();
     const config = useRuntimeConfig();
 

@@ -1,10 +1,36 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: "2024-04-03",
+    modules: [
+        "@nuxtjs/tailwindcss",
+        "@nuxtjs/i18n",
+        "@nuxt/fonts",
+        "@nuxtjs/seo",
+        "nuxt-og-image",
+        "shadcn-nuxt",
+    ],
     site: {
         url: "http://localhost:3000/",
         name: "Indicator Capital",
         description: "Boosting deep tech heores",
+    },
+    runtimeConfig: {
+        public: {
+            wordpressURL: "https://rogerjunior.com/stage/wp-json/wp/v2",
+            posthogPublicKey: "phc_DWTtMlaVbqzMIpEDL8ZsPHmGFZtwnpKastUjQwmnn4Z",
+            posthogHost: "https://eu.i.posthog.com",
+        },
+    },
+    shadcn: {
+        /**
+         * Prefix for all the imported component
+         */
+        prefix: "",
+        /**
+         * Directory that the component lives in.
+         * @default "./components/ui"
+         */
+        componentDir: "./components/ui",
     },
     ogImage: {
         fonts: [
@@ -17,7 +43,6 @@ export default defineNuxtConfig({
             extension: "jpeg",
         },
     },
-    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/i18n", "@nuxt/fonts", "@nuxtjs/seo", "nuxt-og-image"],
     devtools: { enabled: true },
     fonts: {
         families: [
@@ -65,9 +90,4 @@ export default defineNuxtConfig({
         },
     },
     plugins: [{ src: "~/plugins/gsap.js", mode: "client" }],
-    runtimeConfig: {
-        public: {
-            wordpressURL: "https://rogerjunior.com/stage/wp-json/wp/v2",
-        },
-    },
 });

@@ -1,0 +1,111 @@
+<template>
+    <div class="content">
+        <div class="panel">
+            <div class="p-4 sm:p-16 max-w-[40rem] grid gap-4">
+                <div class="uppercase opacity-50 text-sm scramble">APPLICATION FORM</div>
+                <h1 class="!text-lg normal-case">
+                    This is the first step of your venture to become an
+                    <!-- prettier-ignore -->
+                    <span class="no-wrap">
+                        <span class="text-primary">/</span>indier.
+                    </span>
+                </h1>
+                <p class="scramble">
+                    We know your time is the most valuable asset in the world, so this questionnaire
+                    is meant to be short. It shouldn't take more than 15 minutes to complete.
+                </p>
+                <p class="scramble">
+                    You’ll be able to download the responses so you can use them for other
+                    questionnaires in your fundraising roadshow!
+                </p>
+            </div>
+
+            <svg
+                width="238"
+                height="81"
+                viewBox="0 0 238 81"
+                fill="none"
+                @click="navigateTo('/apply/form')"
+                class="apply-btn-form"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M237.5 57.5L214 81H0V57.5V23.5L22 0H237.5V57.5Z" fill="#FFDA29" />
+                <path
+                    d="M153.881 31.5088H166.95V33.8576H161.602V48.9999H159.229V33.8576H153.881V31.5088Z"
+                    fill="black" />
+                <path
+                    d="M145.633 36.4063C145.633 36.9893 145.533 37.5474 145.333 38.0805C145.15 38.5969 144.884 39.0716 144.534 39.5047C144.201 39.9212 143.801 40.2877 143.334 40.6042C142.885 40.904 142.385 41.1206 141.835 41.2538L145.408 48.9749H142.96L139.436 41.3788H135.813V48.9749H133.439V31.4338H140.661C141.344 31.4338 141.985 31.5671 142.585 31.8336C143.201 32.0835 143.734 32.4333 144.184 32.8831C144.634 33.3329 144.984 33.8659 145.233 34.4823C145.5 35.082 145.633 35.7233 145.633 36.4063ZM140.661 39.03C141.011 39.03 141.344 38.9633 141.66 38.8301C141.977 38.6802 142.252 38.4886 142.485 38.2554C142.735 38.0222 142.926 37.7473 143.06 37.4308C143.193 37.1143 143.259 36.7728 143.259 36.4063C143.259 36.0398 143.193 35.6983 143.06 35.3818C142.926 35.0653 142.735 34.7905 142.485 34.5572C142.252 34.3074 141.977 34.1158 141.66 33.9825C141.344 33.8493 141.011 33.7826 140.661 33.7826H135.813V39.03H140.661Z"
+                    fill="black" />
+                <path
+                    d="M119.274 31.5337L123.947 48.9998H121.498L120.149 43.9524H113.527L112.178 48.9998H109.729L114.402 31.5337H119.274ZM119.499 41.6036L117.45 33.8825H116.226L114.152 41.6036H119.499Z"
+                    fill="black" />
+                <path
+                    d="M90.1543 31.5088H103.223V33.8576H97.8754V48.9999H95.5016V33.8576H90.1543V31.5088Z"
+                    fill="black" />
+                <path
+                    d="M72.773 35.8816C72.773 36.5146 73.0145 36.9977 73.4976 37.3309C73.9807 37.664 74.5804 37.9472 75.2967 38.1804C76.0296 38.4136 76.8126 38.6385 77.6455 38.8551C78.4951 39.0716 79.2697 39.3715 79.9693 39.7546C80.6856 40.1378 81.2687 40.6542 81.7184 41.3038C82.1849 41.9535 82.4014 42.8364 82.3681 43.9525C82.3514 44.3023 82.2848 44.7687 82.1682 45.3518C82.0516 45.9348 81.7851 46.5095 81.3686 47.0759C80.9688 47.6256 80.3774 48.1087 79.5945 48.5252C78.8282 48.925 77.7788 49.1249 76.4461 49.1249C75.43 49.1249 74.5054 48.9916 73.6725 48.7251C72.8396 48.4419 72.1316 48.0421 71.5486 47.5257C70.9822 47.0093 70.5408 46.3763 70.2243 45.6266C69.9078 44.877 69.7495 44.0275 69.7495 43.0779V42.7281H72.0733C72.2066 44.1274 72.6231 45.1519 73.3227 45.8016C74.039 46.4346 74.9968 46.7511 76.1962 46.7511C76.6293 46.7511 77.0708 46.7178 77.5206 46.6511C77.9703 46.5845 78.3785 46.4512 78.7449 46.2513C79.1114 46.0514 79.4113 45.7849 79.6445 45.4517C79.8777 45.1019 79.9943 44.6521 79.9943 44.1024C79.9943 43.2862 79.7528 42.6698 79.2697 42.2534C78.8032 41.8202 78.2119 41.4788 77.4956 41.2289C76.7959 40.9623 76.0297 40.7375 75.1967 40.5542C74.3638 40.371 73.5892 40.1128 72.8729 39.7796C72.1733 39.4464 71.5819 38.9883 71.0988 38.4053C70.6324 37.8223 70.3992 37.006 70.3992 35.9566C70.3992 35.2236 70.5324 34.5656 70.799 33.9826C71.0655 33.3995 71.4403 32.9081 71.9234 32.5083C72.4065 32.1085 72.9895 31.8087 73.6725 31.6088C74.3555 31.3922 75.1134 31.2839 75.9464 31.2839C77.6622 31.2839 79.0448 31.7337 80.0942 32.6332C81.1437 33.5161 81.7101 34.8071 81.7934 36.5063H79.4696C79.2863 35.4568 78.9032 34.7155 78.3202 34.2824C77.7371 33.8493 76.9708 33.6327 76.0213 33.6327C75.0718 33.6327 74.2889 33.8243 73.6725 34.2074C73.0728 34.5739 72.773 35.132 72.773 35.8816Z"
+                    fill="black" />
+            </svg>
+
+            <div class="apply-bg hidden sm:block"></div>
+        </div>
+    </div>
+</template>
+<script setup>
+const { locale, setLocale } = useI18n();
+const { $gsap } = useNuxtApp();
+useSeoMeta({
+    title: "Indicator Capital",
+    ogTitle: "Indicator Capital",
+    description: "This is Indicator Capital, let me tell you all about it.",
+    ogDescription: "This is Indicator Capital, let me tell you all about it.",
+    ogImage: "https://example.com/image.png",
+    twitterCard: "summary_large_image",
+});
+
+const text = ref();
+
+onMounted(() => {
+    console.log(text.value);
+    $gsap.to(".scramble", {
+        duration: 1,
+        delay: 0.5,
+        scrambleText: {
+            speed: 0.1,
+            chars: "dkjokd21n3k2130iudjkmlz,@#!)I(@J)   ",
+            text: "{original}",
+        },
+    });
+});
+</script>
+
+<style lang="scss">
+.apply-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+
+    border-image-slice: 50 577 548 48;
+    border-image-width: 50px 577px 548px 48px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: stretch stretch;
+    border-image-source: url("/images/bg-apply.svg");
+    border-style: solid;
+}
+
+.apply-btn-form {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+
+    &:hover {
+        animation-name: flicker-on;
+        animation-duration: 300ms;
+        animation-fill-mode: forwards;
+    }
+}
+</style>

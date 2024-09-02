@@ -137,14 +137,15 @@
             </svg>
 
             <div class="panel-box">
-                <a href="/apply" class="btn">{{ $t("Apply") }}</a>
+                <a @click="navigateTo('/apply')" class="btn">{{ $t("Apply") }}</a>
                 <span class="ml-8">Some text in here</span>
             </div>
         </div>
-        <div class="panel has-shape panel-game">
+        <div class="panel has-shape panel-game hidden sm:block">
             <img
                 src="/images/starship.svg"
                 alt=""
+                class="starship"
                 style="
                     max-width: 80%;
                     height: auto;
@@ -248,7 +249,7 @@ setSeo("home", "pages", {
     resetTemplate: true,
 });
 
-const shipAcceleration = 0.1;
+const shipAcceleration = 0.3;
 const shipMaxSpeed = 10;
 const shipRotationSpeed = 15;
 var isAccelerating = false;
@@ -272,6 +273,11 @@ const startGame = () => {
     if (gameIsActive.value) return;
     gameIsActive.value = true;
 
+    new $SplitText(".split-text", {
+        type: "chars, words",
+        charsClass: "solid",
+    });
+
     window.addEventListener("keydown", (e) => {
         if (e.key == "ArrowRight") {
             angle.value += shipRotationSpeed;
@@ -282,6 +288,10 @@ const startGame = () => {
         if (e.key == "ArrowUp") {
             speed.value += shipAcceleration;
             speed.value = Math.min(speed.value, shipMaxSpeed);
+        }
+        if (e.key == "ArrowDown") {
+            speed.value -= shipAcceleration;
+            speed.value = Math.max(speed.value, 0);
         }
         if (e.key == " ") {
             playerShoot.value = true;
@@ -327,8 +337,8 @@ const render = () => {
     bullets.value.forEach((bullet, i) => {
         let a = (bullet.angle * Math.PI) / 180;
         bullets.value[i].position = [
-            5 * Math.cos(a) + bullets.value[i].position[0],
-            5 * Math.sin(a) + bullets.value[i].position[1],
+            10 * Math.cos(a) + bullets.value[i].position[0],
+            10 * Math.sin(a) + bullets.value[i].position[1],
         ];
 
         document.querySelectorAll(".solid").forEach((solid) => {
@@ -382,10 +392,6 @@ const render = () => {
 
 onNuxtReady(() => {
     render();
-    new $SplitText(".split-text", {
-        type: "chars, words",
-        charsClass: "solid",
-    });
 });
 </script>
 
@@ -451,6 +457,15 @@ onNuxtReady(() => {
             animation-duration: 1s;
             animation-fill-mode: forwards;
         }
+    }
+
+    .panel-game .panel-shape,
+    .starship,
+    .bg-p,
+    .panel-box {
+        animation-name: flicker-off;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
     }
 }
 

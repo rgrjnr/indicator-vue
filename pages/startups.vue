@@ -485,6 +485,7 @@ onMounted(() => {
 
     .startups-panel {
         display: none;
+        margin-left: calc(-1 * var(--content-padding) - 1px);
     }
 
     .page-startups-slug {
@@ -494,6 +495,22 @@ onMounted(() => {
         .startups-panel {
             display: block;
             max-width: unset;
+            background-image: none;
+        }
+
+        .startup-panel {
+            padding-left: 0;
+        }
+        .panel-shape {
+            display: none;
+        }
+        .panel-inside {
+            mask-image: unset;
+        }
+        .has-shape {
+            aspect-ratio: unset;
+            overflow: unset;
+            width: 100%;
         }
     }
 }

@@ -59,12 +59,11 @@ const route = useRoute();
 
 const localePath = useLocalePath();
 
-const { data: member } = await useFetch(
-    config.public.wordpressURL + "/team?slug=" + route.params.slug,
-    {
-        method: "get",
-    }
-);
+const { data: member } = await $useFetch("/team", {
+    query: {
+        slug: route.params.slug,
+    },
+});
 
 const tags = [
     "role",

@@ -16,16 +16,6 @@
                             class="release"
                             @click="navigateTo(localePath('/media/' + release.slug))"
                             v-for="release in items.filter((media) => media.type == 'release')">
-                            <div class="release-thumbnail-wrapper" v-if="release._embedded">
-                                <img
-                                    :src="
-                                        (release._embedded &&
-                                            release._embedded['wp:featuredmedia'][0].source_url) ||
-                                        ''
-                                    "
-                                    alt=""
-                                    class="release-thumbnail" />
-                            </div>
                             <div class="release-info">
                                 <div class="release-title">{{ release.title.rendered }}</div>
                                 <div class="release-date">

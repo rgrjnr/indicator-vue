@@ -30,9 +30,11 @@ body {
     --color-white: rgb(var(--rgb-white));
     --color-primary: rgb(var(--rgb-primary));
     --color-black: rgb(var(--rgb-black));
-    --content-padding: 3rem;
+    --color-red: #ffaeae;
+    --content-padding: max(3rem, 5vb);
 
-    --shape-mask-image: url('/images/team-shape.svg')
+    --shape-mask-image: url('/images/team-shape.svg');
+    @apply text-base;
 }
 
 
@@ -104,8 +106,8 @@ h2 {
 }
 
 .panel.has-shape {
-    flex: unset;
-    aspect-ratio: 3/4;
+    /* flex: unset; */
+    /* aspect-ratio: 3/4; */
     overflow: hidden;
 }
 
@@ -123,7 +125,7 @@ h2 {
 
 .panel-inside {
     mask-image: var(--shape-mask-image);
-    mask-size: contain;
+    mask-size: 100% 100%;
 }
 
 ::-moz-selection {
@@ -302,4 +304,104 @@ h2 {
 .shape-btn:active path {
     fill: var(--color-black);
     stroke: var(--color-white);
+}
+
+.input {
+    background-color: var(--color-black);
+    border: 1px solid var(--color-white);
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    font: inherit;
+    padding: 0.25em;
+
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.form-item {
+    display: grid;
+    margin-block: 3rem;
+    gap: 0.25rem;
+    position: relative;
+}
+
+.form-item .counter {
+    top: 0;
+    right: 0;
+    font-size: 80%;
+    position: absolute;
+}
+
+.form-item:focus-within label {
+    color: var(--color-primary)
+}
+
+.form-item-helper {
+    opacity: 0.5;
+    font-size: 80%;
+}
+
+.invalid .form-item-label {
+    color: rgb(255, 174, 174);
+}
+
+.invalid .input {
+    border-color: #ffaeae;
+    background-color: rgba(255, 174, 174, 0.1);
+}
+
+.select-option:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.input::file-selector-button {
+
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border: none;
+    text-transform: uppercase;
+    font-size: 80%;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+}
+
+.btn {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+    border: none;
+    text-transform: uppercase;
+    font-size: 80%;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: 1px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn:hover {
+
+    animation-name: flicker-on;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
 }

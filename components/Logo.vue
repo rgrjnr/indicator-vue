@@ -2,7 +2,7 @@
     <svg
         width="3616"
         height="500"
-        style="height: 1.5rem; width: auto"
+        style="height: 1.5em; width: auto"
         viewBox="0 0 3616 500"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">

@@ -37,7 +37,6 @@ createReadStream("news.csv")
                     return item.name == row.source;
                 })
                 .map((item) => item.id);
-            console.log(sourceIds);
 
             const update = await axios.post(
                 `${wordpressUrl}/wp-json/wp/v2/press/`,
@@ -46,7 +45,8 @@ createReadStream("news.csv")
                     lang: row.lang,
                     content: row.content,
                     url: row.url,
-                    type: "media",
+                    type: row.source == "Press Release" ? "release" : "media",
+                    status: "publish",
                     date: new Date(row.date),
                     sources: sourceIds,
                     source: sourceIds,
@@ -63,7 +63,8 @@ createReadStream("news.csv")
                     lang: row.lang == "en" ? "pt" : "en",
                     content: row.content_translated,
                     url: row.url,
-                    type: "media",
+                    type: row.source == "Press Release" ? "release" : "media",
+                    status: "publish",
                     date: new Date(row.date),
                     sources: sourceIds,
                     source: sourceIds,
