@@ -1,7 +1,7 @@
 <template>
     <div class="content">
-        <div class="panel panel-main">
-            <div class="tabs mt-14">
+        <div class="panel panel-main panel-stretch overflow-y-scroll scrollable">
+            <div class="tabs mt-14 pr-4">
                 <div class="tabs-header text-xl">
                     <div
                         :class="{ 'tab-title': true, active: showing == tab }"

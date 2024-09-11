@@ -2,21 +2,16 @@
     <div class="content">
         <div class="panel">
             <div class="p-4 sm:p-16 max-w-[40rem] grid gap-4">
-                <div class="uppercase opacity-50 text-sm scramble">APPLICATION FORM</div>
+                <div class="uppercase opacity-50 text-sm scramble">{{ $t("apply.tag") }}</div>
                 <h1 class="!text-lg normal-case">
-                    This is the first step of your venture to become an
+                    {{ $t("apply.intro") }}
                     <!-- prettier-ignore -->
                     <span class="no-wrap">
                         <span class="text-primary">/</span>indier.
                     </span>
                 </h1>
-                <p class="scramble">
-                    We know your time is the most valuable asset in the world, so this questionnaire
-                    is meant to be short. It shouldn't take more than 15 minutes to complete.
-                </p>
-                <p class="scramble">
-                    You’ll be able to download the responses so you can use them for other
-                    questionnaires in your fundraising roadshow!
+                <p class="scramble" v-for="p in $tm('apply.description')">
+                    {{ p }}
                 </p>
             </div>
 
@@ -25,7 +20,7 @@
                 height="81"
                 viewBox="0 0 238 81"
                 fill="none"
-                @click="navigateTo('/apply/form')"
+                @click="navigateTo(localePath('/apply/form'))"
                 class="apply-btn-form"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M237.5 57.5L214 81H0V57.5V23.5L22 0H237.5V57.5Z" fill="#FFDA29" />

@@ -137,8 +137,14 @@
             </svg>
 
             <div class="panel-box">
-                <a @click="navigateTo('/apply')" class="btn">{{ $t("Apply") }}</a>
-                <span class="ml-8">Some text in here</span>
+                <a @click="navigateTo('/apply')" class="btn">{{ $t("apply.title") }}</a>
+                <span class="ml-8">
+                    {{ $t("home.intro") }}
+                    <!-- prettier-ignore -->
+                    <span class="no-wrap">
+                        <span class="text-primary">/</span>indier.
+                    </span>
+                </span>
             </div>
         </div>
         <div class="panel has-shape panel-game hidden sm:block">

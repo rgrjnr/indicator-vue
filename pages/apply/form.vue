@@ -92,7 +92,7 @@ const sections = [
             },
             {
                 label: "Core Technology",
-                name: "Technology",
+                name: "technology",
                 required: true,
                 type: "select",
                 options: [
@@ -254,6 +254,35 @@ const sections = [
                 helperText:
                     "Omitting information may negatively impact the investment analysis process for your company.",
             },
+
+            {
+                label: "Total capital raised until today",
+                name: "capitalraised",
+                type: "number",
+                if: "raised",
+                min: 0,
+                formatOptions: {
+                    style: "currency",
+                    currency: "USD",
+                    currencyDisplay: "code",
+                    currencySign: "accounting",
+                },
+                step: 10000,
+            },
+
+            {
+                label: "For how much equity? (%)",
+                name: "equityraised",
+                type: "number",
+                if: "raised",
+                formatOptions: {
+                    style: "percent",
+                    minimumFractionDigits: 1,
+                },
+                step: 0.005,
+                min: 0,
+                max: 1,
+            },
         ],
     },
     {
@@ -300,6 +329,7 @@ const sections = [
 ];
 
 const currentSection = ref(0);
+const file = ref();
 
 const createSchema = (sections) => {
     const shape = {};
@@ -319,7 +349,11 @@ const formData = reactive(
     sections.reduce((acc, section) => {
         section.items.forEach((item) => {
             if (item.type === "file") {
-                acc[item.name] = null;
+                acc[item.name] = {
+                    value: null,
+                    errors: [],
+                    blurred: false,
+                };
             } else {
                 acc[item.name] = {
                     value: item.type == "switch" ? false : "",
@@ -358,8 +392,31 @@ const verifyURL = (fieldName) => {
 
 const onSubmit = async () => {
     try {
+        console.log(formData);
+
+        const body = {};
+        for (var key in formData) {
+            body[key] = formData[key]?.value;
+        }
+        const fd = new FormData();
+
+        // Append the JSON body as a string (you can stringify the JSON)
+        fd.append("json", JSON.stringify(body));
+
+        // Append the file
+        fd.append("file", file.value); // Assuming `file` is a File object (e.g., from an input element)
+
         // Validate form data using Zod schema
-        schema.parse(formData);
+        schema.parse(body);
+        const { data: submission } = await $useFetch("/form/v1/submit", {
+            method: "POST",
+            body: fd,
+            baseURL: "https://api.indicator.capital/wp-json",
+        });
+
+        console.log(submission.value.post_id);
+
+        // navigateTo("/apply/response/" + submission.value.post_id);
         // Handle successful validation (e.g., submit the form data to an API)
         console.log("Form submitted successfully:", formData);
     } catch (error) {
@@ -374,6 +431,7 @@ const onSubmit = async () => {
 const sectionErrorCount = ref([0, 0, 0, 0]);
 
 const review = async () => {
+    console.log("Review", formData);
     try {
         const data = {};
         for (var key in formData) {
@@ -381,6 +439,7 @@ const review = async () => {
         }
 
         schema.parse(data);
+        sectionErrorCount.value = [0, 0, 0, 0];
         // Handle successful validation (e.g., submit the form data to an API)
         // console.log("Form submitted successfully:", formData);
     } catch (error) {
@@ -391,16 +450,19 @@ const review = async () => {
             error.errors.forEach((e) => {
                 formData[e.path[0]].errors = [e.message];
             });
-
+            sectionErrorCount.value = [0, 0, 0, 0];
             sections.forEach((section, i) => {
                 sectionErrorCount.value[i] = 0;
                 section.items.forEach((item) => {
-                    if (formData[item.name]?.errors.length > 0) {
+                    if (formData[item.name]?.errors?.length > 0) {
+                        console.log(item.name);
                         sectionErrorCount.value[i] += 1;
                         console.log(sectionErrorCount.value);
                     }
                 });
             });
+
+            console.log(sections);
         } else {
             console.error("Unknown error:", error);
         }
@@ -417,9 +479,10 @@ watch(
 
 // Handle file input change
 const handleFileChange = (event) => {
+    event.preventDefault();
     const input = event.target;
     if (input.files && input.files.length > 0) {
-        formData[input.name] = input.files[0];
+        file.value = input.files[0];
     }
 };
 
@@ -436,7 +499,10 @@ const updateSwitch = (name) => {
                 <ul class="form-section-menu-list">
                     <li
                         v-for="(section, i) in sections"
-                        @click="currentSection = i"
+                        @click="
+                            currentSection = i;
+                            review();
+                        "
                         :class="{ active: currentSection == i }">
                         <span>{{ section.name }}</span>
                     </li>
@@ -461,7 +527,7 @@ const updateSwitch = (name) => {
                                 :name="item.name || ''"
                                 v-if="!item.if || (item.if && formData[item.if].value)">
                                 <FormItem
-                                    :class="{ invalid: formData[item.name]?.errors.length > 0 }">
+                                    :class="{ invalid: formData[item.name]?.errors?.length > 0 }">
                                     <FormLabel>{{ item.label }}</FormLabel>
                                     <FormControl>
                                         <Input
@@ -470,7 +536,9 @@ const updateSwitch = (name) => {
                                             :name="item.name"
                                             @change="handleFileChange" />
 
-                                        <Select v-else-if="item.type === 'select'">
+                                        <Select
+                                            v-else-if="item.type === 'select'"
+                                            v-model="formData[item.name].value">
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Choose an option" />
                                             </SelectTrigger>
@@ -545,7 +613,7 @@ const updateSwitch = (name) => {
                                     <FormDescription v-if="item.helperText">
                                         {{ item.helperText }}
                                     </FormDescription>
-                                    <template v-if="formData[item.name]?.errors.length > 0">
+                                    <template v-if="formData[item.name]?.errors?.length > 0">
                                         {{ formData[item.name]?.errors[0] }}
                                     </template>
                                 </FormItem>

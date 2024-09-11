@@ -10,7 +10,6 @@
                     <div class="member-photo-wrapper">
                         <img
                             :src="member._embedded['wp:featuredmedia'][0].source_url"
-                            alt=""
                             class="member-photo" />
                     </div>
                     <div class="member-details">

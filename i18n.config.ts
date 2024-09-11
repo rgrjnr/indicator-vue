@@ -9,9 +9,17 @@ export default defineI18nConfig(() => ({
     messages: {
         en: {
             welcome: "Welcome",
-            home: { title: "Home" },
+            home: { title: "Home", intro: "Start your journey as an" },
             thesis: { title: "Thesis" },
-            apply: { title: "Apply" },
+            apply: {
+                title: "Apply",
+                tag: "Application Form",
+                intro: "This is the first step of your venture to become an",
+                description: [
+                    "We know your time is the most valuable asset in the world, so this questionnaire is meant to be short. It shouldn't take more than 15 minutes to complete.",
+                    "You’ll be able to download the responses so you can use them for other questionnaires in your fundraising roadshow!",
+                ],
+            },
             team: {
                 title: "Team",
                 h1: "Our Team",
@@ -55,9 +63,18 @@ export default defineI18nConfig(() => ({
         },
         pt: {
             welcome: "Bem-vindo",
-            home: { title: "Home" },
+            home: { title: "Home", intro: "Comece sua jornada como um" },
             thesis: { title: "Tese" },
-            apply: { title: "Aplicar" },
+            apply: {
+                title: "Aplicar",
+                tag: "Formulário de Aplicação",
+                intro: "Esse é o primeiro passo na sua jornada de se tornar um",
+                description: [
+                    "Sabemos que seu tempo é o seu bem mais valioso, então este questionário foi criado para ser curto. Não deve levar mais de 15 minutos para ser concluído.",
+                    "Você poderá baixar as respostas para usá-las em outros questionários em seu roadshow de arrecadação de fundos!",
+                    "Todas as perguntas estão em inglês e pedimos que sejam respondidas também em inglês.",
+                ],
+            },
             team: {
                 title: "Time",
                 h1: "Nosso Time",

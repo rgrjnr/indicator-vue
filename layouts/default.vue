@@ -3,7 +3,7 @@
         <NuxtLoadingIndicator />
         <nav
             class="flex items-center justify-between px-6 py-4 border-b-[1px] border-solid border-white text-sm relative">
-            <router-link to="/">
+            <router-link :to="localePath('/')">
                 <Logo />
             </router-link>
             <MainNavigation />

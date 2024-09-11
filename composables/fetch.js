@@ -1,5 +1,9 @@
 export const $useFetch = (request, opts = {}) => {
-    const { locale } = useI18n();
+    var l;
+    try {
+        const { locale } = useI18n();
+        l = locale.value;
+    } catch (e) {}
     const config = useRuntimeConfig();
 
     return useFetch(request, {
@@ -9,7 +13,7 @@ export const $useFetch = (request, opts = {}) => {
         query: {
             _embed: true,
             per_page: 100,
-            lang: locale.value,
+            lang: l,
             ...opts?.query,
         },
     });

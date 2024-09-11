@@ -10,13 +10,13 @@ export default defineNuxtConfig({
         "shadcn-nuxt",
     ],
     site: {
-        url: "http://localhost:3000/",
+        url: "https://indicator.capital/",
         name: "Indicator Capital",
         description: "Boosting deep tech heores",
     },
     runtimeConfig: {
         public: {
-            wordpressURL: "https://rogerjunior.com/stage/wp-json/wp/v2",
+            wordpressURL: "https://api.indicator.capital/wp-json/wp/v2",
             posthogPublicKey: "phc_DWTtMlaVbqzMIpEDL8ZsPHmGFZtwnpKastUjQwmnn4Z",
             posthogHost: "https://eu.i.posthog.com",
         },
