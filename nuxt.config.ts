@@ -1,14 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: "2024-04-03",
-    modules: [
-        "@nuxtjs/tailwindcss",
-        "@nuxtjs/i18n",
-        "@nuxt/fonts",
-        "@nuxtjs/seo",
-        "nuxt-og-image",
-        "shadcn-nuxt",
-    ],
+    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/i18n", "@nuxt/fonts", "@nuxtjs/seo", "shadcn-nuxt"],
     site: {
         url: "https://indicator.capital/",
         name: "Indicator Capital",
@@ -31,17 +24,6 @@ export default defineNuxtConfig({
          * @default "./components/ui"
          */
         componentDir: "./components/ui",
-    },
-    ogImage: {
-        fonts: [
-            {
-                name: "Indicator",
-                path: "/fonts/IndicatorSK-Regular.woff",
-            },
-        ],
-        defaults: {
-            extension: "jpeg",
-        },
     },
     devtools: { enabled: true },
     fonts: {

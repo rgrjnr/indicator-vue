@@ -197,6 +197,11 @@ const { data: tags } = await $useFetch("/group");
 
 const groups = tags.value.filter((g) => g.parent == 0);
 
+const config = useRuntimeConfig();
+const route = useRoute();
+
+setSeo("startups");
+
 if (!useRoute().name.includes("slug")) setSeo("startups");
 
 function randomBetween(min, max) {
@@ -548,6 +553,9 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 80rem) {
+    .startup-tutorial {
+        display: none;
+    }
     .panel-main {
         overflow-y: scroll;
     }

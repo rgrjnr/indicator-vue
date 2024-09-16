@@ -149,6 +149,102 @@ const sections = [
                     { label: "Wellness and Fitness", value: "Wellness and Fitness" },
                 ],
             },
+
+            {
+                label: "Where's is your company headquartered?",
+                name: "headquarters",
+                required: true,
+                type: "select",
+                options: [
+                    { value: "Brazil", label: "Brazil" },
+                    { value: "USA", label: "USA" },
+                    { value: "Argentina", label: "Argentina" },
+                    { value: "Chile", label: "Chile" },
+                    { value: "Colombia", label: "Colombia" },
+                    { value: "Mexico", label: "Mexico" },
+                    { value: "Europe", label: "Europe" },
+                    { value: "Other", label: "Other" },
+                ],
+            },
+            {
+                label: "Which SDG (Sustainable Development Goal) does your company fit?",
+                name: "sdg",
+                required: true,
+                type: "select",
+                options: [
+                    { label: "(1) No Poverty", value: "(1) No Poverty" },
+                    { label: "(2) Zero Hunger", value: "(2) Zero Hunger" },
+                    {
+                        label: "(3) Good Health and Well-Being",
+                        value: "(3) Good Health and Well-Being",
+                    },
+                    { label: "(4) Quality Education", value: "(4) Quality Education" },
+                    { label: "(5) Gender Equality", value: "(5) Gender Equality" },
+                    {
+                        label: "(6) Clean Water and Sanitation",
+                        value: "(6) Clean Water and Sanitation",
+                    },
+                    {
+                        label: "(7) Affordable and Clean Energy",
+                        value: "(7) Affordable and Clean Energy",
+                    },
+                    {
+                        label: "(8) Decent work and economic growth",
+                        value: "(8) Decent work and economic growth",
+                    },
+                    {
+                        label: "(9) Industry, innovation and infrastructure",
+                        value: "(9) Industry, innovation and infrastructure",
+                    },
+                    { label: "(10) Reduced Inequalities", value: "(10) Reduced Inequalities" },
+                    {
+                        label: "(11) Sustainable cities and communities",
+                        value: "(11) Sustainable cities and communities",
+                    },
+                    {
+                        label: "(12) Responsible consumption and production",
+                        value: "(12) Responsible consumption and production",
+                    },
+                    { label: "(13) Climate action", value: "(13) Climate action" },
+                    { label: "(14) Life below water", value: "(14) Life below water" },
+                    { label: "(15) Life on land", value: "(15) Life on land" },
+                    {
+                        label: "(16) Peace, justice and strong institutions",
+                        value: "(16) Peace, justice and strong institutions",
+                    },
+                    {
+                        label: "(17) Partnerships for the goals",
+                        value: "(17) Partnerships for the goals",
+                    },
+                ],
+            },
+            {
+                label: "How did you find us?",
+                name: "findus",
+                required: true,
+                type: "select",
+                options: [
+                    { label: "Referral", value: "Referral" },
+                    {
+                        label: "Social media (LinkedIn, Facebook, Twitter, etc.)",
+                        value: "Social media (LinkedIn, Facebook, Twitter, etc.)",
+                    },
+                    {
+                        label: "Online search (Google, Bing, etc.)",
+                        value: "Online search (Google, Bing, etc.)",
+                    },
+                    { label: "Event or Conference", value: "Event or Conference" },
+                    {
+                        label: "News article or Press release",
+                        value: "News article or Press release",
+                    },
+                    {
+                        label: "Direct outreach from our team",
+                        value: "Direct outreach from our team",
+                    },
+                    { label: "Other", value: "Other" },
+                ],
+            },
         ],
     },
     {
@@ -415,7 +511,7 @@ const onSubmit = async () => {
             baseURL: "https://api.indicator.capital/wp-json",
         });
 
-        // navigateTo("/apply/response/" + submission.value.post_id);
+        navigateTo("/apply/response/" + submission.value.post_id);
         // Handle successful validation (e.g., submit the form data to an API)
     } catch (error) {
         if (error instanceof z.ZodError) {

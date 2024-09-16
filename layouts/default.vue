@@ -13,7 +13,7 @@
             <slot />
         </div>
 
-        <a href="https://rogerjunior.com/?utm_source=indicator" id="copyright">
+        <a href="https://rogerjunior.com/?utm_source=indicator" id="copyright" target="_blank">
             <svg
                 width="35"
                 height="37"

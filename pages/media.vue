@@ -71,6 +71,7 @@ const tabs = ["releases", "news"];
 
 const { data: items } = await $useFetch("/press");
 const { data: sources } = await $useFetch("/source");
+
 setSeo("media");
 </script>
 

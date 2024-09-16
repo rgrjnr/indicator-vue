@@ -12,18 +12,16 @@ export const setSeo = async (slug, type = "pages", options = {}) => {
         },
     });
 
+    console.log(page.value[0]?._embedded["wp:featuredmedia"][0]?.source_url);
     const title = page.value[0]?.title?.rendered;
     const description = page.value[0]?.short_description || page.value[0]?.content?.rendered;
-
-    defineOgImageComponent("Default", {
-        title,
-        type,
-        description,
-    });
 
     useHead({
         title: () => title,
         description: () => description,
+        ogImage: page.value[0]?._embedded["wp:featuredmedia"]
+            ? page.value[0]?._embedded["wp:featuredmedia"].source_url
+            : "https://indicator.capital/images/OG.png",
         titleTemplate: options.resetTemplate ? "%s" : "%s %separator %siteName",
     });
 };

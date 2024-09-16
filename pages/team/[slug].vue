@@ -76,6 +76,8 @@ const tags = [
     "youtube",
     "email",
 ];
+
+setSeo(route.params.slug, "team");
 </script>
 
 <style lang="scss">
