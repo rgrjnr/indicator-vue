@@ -12,7 +12,6 @@ export const setSeo = async (slug, type = "pages", options = {}) => {
         },
     });
 
-    console.log(page.value[0]?._embedded["wp:featuredmedia"][0]?.source_url);
     const title = page.value[0]?.title?.rendered;
     const description = page.value[0]?.short_description || page.value[0]?.content?.rendered;
 
