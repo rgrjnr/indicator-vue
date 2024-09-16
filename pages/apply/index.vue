@@ -5,10 +5,6 @@
                 <div class="uppercase opacity-50 text-sm scramble">{{ $t("apply.tag") }}</div>
                 <h1 class="!text-lg normal-case">
                     {{ $t("apply.intro") }}
-                    <!-- prettier-ignore -->
-                    <span class="no-wrap">
-                        <span class="text-primary">/</span>indier.
-                    </span>
                 </h1>
                 <p class="scramble" v-for="p in $tm('apply.description')">
                     {{ p }}
@@ -60,7 +56,6 @@ useSeoMeta({
 const text = ref();
 
 onMounted(() => {
-    console.log(text.value);
     $gsap.to(".scramble", {
         duration: 1,
         delay: 0.5,

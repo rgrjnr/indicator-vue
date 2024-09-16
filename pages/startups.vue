@@ -1,5 +1,88 @@
 <template>
     <div class="content">
+        <div class="startup-tutorial">
+            <div class="instructions">
+                {{ $t("startups.instructions") }}
+            </div>
+            <svg
+                width="401"
+                height="532"
+                viewBox="0 0 401 532"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M48.4076 516H15V97.6211L78.2986 34.3368H243.578L262.919 15H347.318L386 53.6737V516H296.327L284.019 503.695H60.7156L48.4076 516Z"
+                    fill="#2A2F30"
+                    stroke="#E2FDFF" />
+                <path d="M376 431.925L386 442L386 365L376 375.075L376 431.925Z" fill="#E2FDFF" />
+                <path d="M25 169.075L15 159L15 236L25 225.925L25 169.075Z" fill="#E2FDFF" />
+                <path d="M187.178 373.198H211.806" stroke="#E2FDFF" />
+                <path d="M123.849 373.198H148.477" stroke="#E2FDFF" />
+                <path d="M250.507 373.198H275.135" stroke="#E2FDFF" />
+                <path d="M199.492 360.884L199.492 385.512" stroke="#E2FDFF" />
+                <path d="M199.492 297.555L199.492 322.183" stroke="#E2FDFF" />
+                <path d="M199.492 424.213L199.492 448.841" stroke="#E2FDFF" />
+                <circle cx="199.492" cy="373.198" r="50.5149" stroke="#E2FDFF" />
+                <mask id="path-11-inside-1_516_798" fill="white">
+                    <path
+                        d="M221.052 326.963C213.755 323.56 205.757 321.933 197.712 322.214C189.666 322.495 181.801 324.676 174.759 328.579L177.975 334.38C184.101 330.984 190.943 329.086 197.943 328.842C204.943 328.598 211.901 330.013 218.249 332.973L221.052 326.963Z" />
+                </mask>
+                <path
+                    d="M221.052 326.963C213.755 323.56 205.757 321.933 197.712 322.214C189.666 322.495 181.801 324.676 174.759 328.579L177.975 334.38C184.101 330.984 190.943 329.086 197.943 328.842C204.943 328.598 211.901 330.013 218.249 332.973L221.052 326.963Z"
+                    stroke="#E2FDFF"
+                    stroke-width="2"
+                    mask="url(#path-11-inside-1_516_798)" />
+                <mask id="path-12-inside-2_516_798" fill="white">
+                    <path
+                        d="M245.727 394.758C249.13 387.462 250.757 379.463 250.476 371.418C250.195 363.372 248.014 355.507 244.111 348.466L238.31 351.681C241.706 357.807 243.604 364.649 243.848 371.649C244.092 378.649 242.677 385.607 239.717 391.955L245.727 394.758Z" />
+                </mask>
+                <path
+                    d="M245.727 394.758C249.13 387.462 250.757 379.463 250.476 371.418C250.195 363.372 248.014 355.507 244.111 348.466L238.31 351.681C241.706 357.807 243.604 364.649 243.848 371.649C244.092 378.649 242.677 385.607 239.717 391.955L245.727 394.758Z"
+                    stroke="#E2FDFF"
+                    stroke-width="2"
+                    mask="url(#path-12-inside-2_516_798)" />
+                <path
+                    d="M215.272 315.146C226.952 318.427 237.389 325.112 245.253 334.35C253.118 343.587 258.052 354.958 259.427 367.011"
+                    stroke="#E2FDFF" />
+                <path
+                    d="M151.826 412.998C143.429 402.909 138.506 390.383 137.787 377.277"
+                    stroke="#E2FDFF" />
+                <mask id="path-15-inside-3_516_798" fill="white">
+                    <path
+                        d="M177.932 419.433C185.229 422.836 193.227 424.463 201.273 424.182C209.318 423.901 217.183 421.72 224.225 417.817L221.009 412.016C214.884 415.412 208.041 417.31 201.041 417.554C194.041 417.798 187.083 416.383 180.735 413.423L177.932 419.433Z" />
+                </mask>
+                <path
+                    d="M177.932 419.433C185.229 422.836 193.227 424.463 201.273 424.182C209.318 423.901 217.183 421.72 224.225 417.817L221.009 412.016C214.884 415.412 208.041 417.31 201.041 417.554C194.041 417.798 187.083 416.383 180.735 413.423L177.932 419.433Z"
+                    stroke="#E2FDFF"
+                    stroke-width="2"
+                    mask="url(#path-15-inside-3_516_798)" />
+                <mask id="path-16-inside-4_516_798" fill="white">
+                    <path
+                        d="M153.257 351.638C149.855 358.934 148.227 366.933 148.508 374.978C148.789 383.024 150.97 390.889 154.873 397.93L160.674 394.715C157.278 388.589 155.381 381.747 155.136 374.747C154.892 367.747 156.307 360.789 159.267 354.441L153.257 351.638Z" />
+                </mask>
+                <path
+                    d="M153.257 351.638C149.855 358.934 148.227 366.933 148.508 374.978C148.789 383.024 150.97 390.889 154.873 397.93L160.674 394.715C157.278 388.589 155.381 381.747 155.136 374.747C154.892 367.747 156.307 360.789 159.267 354.441L153.257 351.638Z"
+                    stroke="#E2FDFF"
+                    stroke-width="2"
+                    mask="url(#path-16-inside-4_516_798)" />
+                <circle cx="199.492" cy="373.198" r="32.9236" stroke="#E2FDFF" />
+                <path
+                    d="M1 127.777V92.0091L72.5147 20.3688H237.739L257.074 1H353.093L400 47.9892V83.7575M1 504.588V531H54.2827L66.5867 518.674H278.167L290.471 531H400V504.588"
+                    stroke="#E2FDFF" />
+                <path d="M90.3789 1H246L233.621 13H78L90.3789 1Z" fill="#E2FDFF" />
+                <circle cx="199.5" cy="373.5" r="19.5" fill="#E2FDFF" />
+                <circle cx="100.5" cy="321.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="303.5" cy="313.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="306.5" cy="389.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="266.5" cy="320.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="60.5" cy="406.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="144.5" cy="439.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="43.5" cy="290.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="221.5" cy="259.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="335.5" cy="350.5" r="3.5" fill="#E2FDFF" />
+                <circle cx="296.5" cy="457.5" r="3.5" fill="#E2FDFF" />
+            </svg>
+        </div>
         <div class="panel panel-stretch overflow-y-visible panel-main">
             <div id="filters">
                 <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
@@ -212,7 +295,7 @@ const render = () => {
     requestAnimationFrame(render);
 };
 
-const changeFilter = (tag) => {
+const changeFilter = async (tag) => {
     currentTag.value = tag;
     constellation.value = [];
     startups.value.forEach((startup, i) => {
@@ -246,6 +329,34 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+.startup-tutorial {
+    width: 401px;
+    height: 532px;
+    position: fixed;
+    z-index: 0;
+    bottom: calc(2 * var(--content-padding) - 1rem);
+    right: calc(2 * var(--content-padding) - 1rem);
+
+    .title {
+        position: absolute;
+        color: var(--color-black);
+        z-index: 1;
+        margin-left: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+        top: 0.3rem;
+    }
+
+    .instructions {
+        position: absolute;
+        top: 15%;
+        z-index: 1;
+        margin: 3rem;
+        text-align: center;
+    }
+}
+
 .constellation-mark {
     width: 1rem;
     height: 1rem;

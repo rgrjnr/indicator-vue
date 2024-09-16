@@ -137,13 +137,9 @@
             </svg>
 
             <div class="panel-box">
-                <a @click="navigateTo('/apply')" class="btn">{{ $t("apply.title") }}</a>
+                <a @click="navigateTo(localePath('/apply'))" class="btn">{{ $t("apply.title") }}</a>
                 <span class="ml-8">
                     {{ $t("home.intro") }}
-                    <!-- prettier-ignore -->
-                    <span class="no-wrap">
-                        <span class="text-primary">/</span>indier.
-                    </span>
                 </span>
             </div>
         </div>
@@ -162,6 +158,7 @@
                     left: 50%;
                     width: 68%;
                     transform: translate(-40%, -50%);
+                    max-height: calc(100vh - 20rem);
                 " />
             <div id="game-buttons">
                 <div class="game-button">
@@ -243,6 +240,7 @@
 </template>
 <script setup>
 import { useNuxtApp } from "#app";
+const localePath = useLocalePath();
 const { $gsap, $SplitText } = useNuxtApp();
 
 const { locale, setLocale } = useI18n();

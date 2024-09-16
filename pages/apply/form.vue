@@ -330,6 +330,7 @@ const sections = [
 
 const currentSection = ref(0);
 const file = ref();
+const panel = ref();
 
 const createSchema = (sections) => {
     const shape = {};
@@ -346,19 +347,21 @@ const createSchema = (sections) => {
 const schema = createSchema(sections);
 
 const formData = reactive(
-    sections.reduce((acc, section) => {
+    sections.reduce((acc, section, i) => {
         section.items.forEach((item) => {
             if (item.type === "file") {
                 acc[item.name] = {
                     value: null,
                     errors: [],
                     blurred: false,
+                    section: i,
                 };
             } else {
                 acc[item.name] = {
                     value: item.type == "switch" ? false : "",
                     errors: [],
                     blurred: false,
+                    section: i,
                 };
             }
         });
@@ -392,8 +395,6 @@ const verifyURL = (fieldName) => {
 
 const onSubmit = async () => {
     try {
-        console.log(formData);
-
         const body = {};
         for (var key in formData) {
             body[key] = formData[key]?.value;
@@ -414,11 +415,8 @@ const onSubmit = async () => {
             baseURL: "https://api.indicator.capital/wp-json",
         });
 
-        console.log(submission.value.post_id);
-
         // navigateTo("/apply/response/" + submission.value.post_id);
         // Handle successful validation (e.g., submit the form data to an API)
-        console.log("Form submitted successfully:", formData);
     } catch (error) {
         if (error instanceof z.ZodError) {
             // Handle validation errors
@@ -431,7 +429,6 @@ const onSubmit = async () => {
 const sectionErrorCount = ref([0, 0, 0, 0]);
 
 const review = async () => {
-    console.log("Review", formData);
     try {
         const data = {};
         for (var key in formData) {
@@ -441,28 +438,26 @@ const review = async () => {
         schema.parse(data);
         sectionErrorCount.value = [0, 0, 0, 0];
         // Handle successful validation (e.g., submit the form data to an API)
-        // console.log("Form submitted successfully:", formData);
+        //
     } catch (error) {
         if (error instanceof z.ZodError) {
             // Handle validation errors
             // console.error("Validation errors:", error.errors);
 
             error.errors.forEach((e) => {
-                formData[e.path[0]].errors = [e.message];
+                if (formData[e.path[0]].section < currentSection.value) {
+                    formData[e.path[0]].errors = [e.message];
+                }
             });
             sectionErrorCount.value = [0, 0, 0, 0];
             sections.forEach((section, i) => {
                 sectionErrorCount.value[i] = 0;
                 section.items.forEach((item) => {
                     if (formData[item.name]?.errors?.length > 0) {
-                        console.log(item.name);
                         sectionErrorCount.value[i] += 1;
-                        console.log(sectionErrorCount.value);
                     }
                 });
             });
-
-            console.log(sections);
         } else {
             console.error("Unknown error:", error);
         }
@@ -489,6 +484,14 @@ const handleFileChange = (event) => {
 const updateSwitch = (name) => {
     formData[name].value = !formData[name].value;
 };
+
+const updateSection = (index) => {
+    currentSection.value = index;
+    review();
+    panel.value.scrollTo({
+        top: 0,
+    });
+};
 </script>
 
 <template>
@@ -499,25 +502,19 @@ const updateSwitch = (name) => {
                 <ul class="form-section-menu-list">
                     <li
                         v-for="(section, i) in sections"
-                        @click="
-                            currentSection = i;
-                            review();
-                        "
+                        @click="updateSection(i)"
                         :class="{ active: currentSection == i }">
                         <span>{{ section.name }}</span>
                     </li>
                     <li
-                        @click="
-                            currentSection = sections.length;
-                            review();
-                        "
+                        @click="updateSection(sections.length)"
                         :class="{ active: currentSection == sections.length }">
                         <span>Review</span>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="panel panel-stretch overflow-y-scroll scrollable panel-main p-4">
+        <div class="panel panel-stretch overflow-y-scroll scrollable panel-main p-4" ref="panel">
             <form @submit.prevent="onSubmit">
                 <template v-for="(section, i) in sections">
                     <section v-if="i === currentSection" class="form-section">

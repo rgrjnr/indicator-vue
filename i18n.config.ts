@@ -14,7 +14,7 @@ export default defineI18nConfig(() => ({
             apply: {
                 title: "Apply",
                 tag: "Application Form",
-                intro: "This is the first step of your venture to become an",
+                intro: "Start your investment process today!",
                 description: [
                     "We know your time is the most valuable asset in the world, so this questionnaire is meant to be short. It shouldn't take more than 15 minutes to complete.",
                     "You’ll be able to download the responses so you can use them for other questionnaires in your fundraising roadshow!",
@@ -43,6 +43,7 @@ export default defineI18nConfig(() => ({
                 problem_x_solution_description: "Problem x Solution",
                 founders: "Founders",
                 filters: "Filters",
+                instructions: "Click the stars on the galaxy to learn more about our startups.",
             },
             media: { title: "Media", h1: "Media", releases: "releases", news: "news" },
             months: [
@@ -63,12 +64,12 @@ export default defineI18nConfig(() => ({
         },
         pt: {
             welcome: "Bem-vindo",
-            home: { title: "Home", intro: "Comece sua jornada como um" },
+            home: { title: "Home", intro: "Comece seu processo de investimento hoje!" },
             thesis: { title: "Tese" },
             apply: {
                 title: "Aplicar",
                 tag: "Formulário de Aplicação",
-                intro: "Esse é o primeiro passo na sua jornada de se tornar um",
+                intro: "Esse é o primeiro passo no seu processo de investimento",
                 description: [
                     "Sabemos que seu tempo é o seu bem mais valioso, então este questionário foi criado para ser curto. Não deve levar mais de 15 minutos para ser concluído.",
                     "Você poderá baixar as respostas para usá-las em outros questionários em seu roadshow de arrecadação de fundos!",
@@ -98,6 +99,7 @@ export default defineI18nConfig(() => ({
                 problem_x_solution_description: "Problema x Solução",
                 founders: "Founders",
                 filters: "Filtros",
+                instructions: "Clique nas estrelas para conhecer mais sobre nossas startups.",
             },
             media: { title: "Mídia", releases: "releases", news: "notícias" },
             months: [
