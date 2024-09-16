@@ -9,7 +9,7 @@ export default defineI18nConfig(() => ({
     messages: {
         en: {
             welcome: "Welcome",
-            home: { title: "Home", intro: "Start your journey as an" },
+            home: { title: "Home", intro: "Start your investment process today!" },
             thesis: { title: "Thesis" },
             apply: {
                 title: "Apply",
