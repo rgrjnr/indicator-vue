@@ -48,13 +48,16 @@ setSeo("team");
     grid-template-columns: repeat(3, 1fr);
     padding-right: 1rem;
     gap: 0.5rem;
+    padding-bottom: var(--content-padding);
 }
 
 .member {
+    mix-blend-mode: screen;
     mix-blend-mode: exclusion;
     border: 1px solid var(--color-white);
     position: relative;
     overflow: hidden;
+    background-color: black;
 
     --square-size: 1.5rem;
 
@@ -91,6 +94,8 @@ setSeo("team");
     filter: grayscale(0.5) contrast(0.95);
     width: 100%;
     transition: all 100ms ease-out;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .member-photo-wrapper {

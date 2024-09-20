@@ -153,8 +153,9 @@ const toggleMenu = () => {
 
     .menu-toggle {
         position: fixed;
-        top: 1rem;
-        right: 1rem;
+        top: 0rem;
+        right: 0rem;
+        padding: 1rem;
         z-index: 10001;
         display: block;
 

@@ -244,6 +244,10 @@ h2 {
         padding: 2rem;
     }
 
+    video {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 40rem) {

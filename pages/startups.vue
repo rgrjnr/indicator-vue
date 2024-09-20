@@ -84,7 +84,7 @@
             </svg>
         </div>
         <div class="panel panel-stretch overflow-y-visible panel-main">
-            <div id="filters" class="scrollable">
+            <div id="filters" :class="{ active: currentTag }">
                 <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
                     <template v-if="tags.filter((tag) => tag.id == currentTag).length > 0">
                         Showing <{{ tags.filter((tag) => tag.id == currentTag)[0].name }}>
@@ -94,6 +94,7 @@
                         viewBox="0 0 431 161"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        class="filter-svg"
                         preserveAspectRatio="none">
                         <path
                             d="M401.5 160.5H1V1H430.5V131.5L401.5 160.5Z"
@@ -116,7 +117,7 @@
                     ">
                     x
                 </button>
-                <div class="filter-groups scrollable overflow-y-auto">
+                <div class="filter-groups scrollable overflow-y-auto" v-if="showFilter">
                     <div
                         :class="{ 'filter-group': true, hide: !showFilter }"
                         v-for="group in groups">
@@ -564,7 +565,7 @@ onMounted(() => {
 }
 .filter-group {
     display: grid;
-    background: linear-gradient(90deg, var(--color-black), transparent);
+    background: var(--color-black);
     border: 1px solid var(--color-white);
     animation-name: flicker-on;
     animation-duration: 500ms;
@@ -587,6 +588,21 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 80rem) {
+    .filter-svg {
+        height: 3.5rem;
+    }
+
+    .filter-groups {
+        max-height: fit-content;
+    }
+
+    #filters {
+        position: relative;
+    }
+
+    #filters.active {
+        width: calc(100% - 2rem);
+    }
     .startup-tutorial {
         display: none;
     }

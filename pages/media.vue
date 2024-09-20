@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="panel panel-main panel-stretch overflow-y-scroll scrollable">
+        <div class="panel panel-main panel-stretch overflow-y-scroll scrollable" ref="panel">
             <div class="tabs mt-14 pr-4">
                 <div class="tabs-header text-xl">
                     <div
@@ -15,7 +15,7 @@
                         <div
                             class="release"
                             @click="navigateTo(localePath('/media/' + release.slug))"
-                            v-for="release in items.filter((media) => media.type == 'release')">
+                            v-for="release in releases">
                             <div class="release-info">
                                 <div class="release-title">{{ release.title.rendered }}</div>
                                 <div class="release-date">
@@ -24,12 +24,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pagination">
+                            <button
+                                v-for="page in releasesTotalPages"
+                                @click="releasesCurrentPage = page"
+                                :class="{
+                                    'page-number': true,
+                                    active: releasesCurrentPage == page,
+                                }">
+                                {{ page }}
+                            </button>
+                        </div>
                     </div>
                     <div class="releases scrollable" v-if="showing == 'news'">
                         <div
                             class="release"
                             @click="navigateTo(localePath('/media/' + item.slug))"
-                            v-for="item in items.filter((item) => item.type == 'media')">
+                            v-for="item in media">
                             <div class="release-info pb-4">
                                 <div class="release-date opacity-50">
                                     {{ $t("months." + new Date(item.date).getMonth()) }}
@@ -42,6 +53,17 @@
                                 </div>
                                 <div class="release-title">{{ item.title.rendered }}</div>
                             </div>
+                        </div>
+                        <div class="pagination">
+                            <button
+                                v-for="page in mediaTotalPages"
+                                @click="
+                                    mediaCurrentPage = page;
+                                    panel.scrollTo(0, 0);
+                                "
+                                :class="{ 'page-number': true, active: mediaCurrentPage == page }">
+                                {{ page }}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -68,8 +90,46 @@
 const localePath = useLocalePath();
 const showing = ref("releases");
 const tabs = ["releases", "news"];
+const mediaTotalPages = useState("mediaTotalPages", () => 0); // Using useState to preserve state between SSR and client-side
+const releasesTotalPages = useState("releasesTotalPages", () => 0); // Using useState to preserve state between SSR and client-side
+const mediaCurrentPage = ref(1); // Also using useState for mediaCurrentPage
+const releasesCurrentPage = ref(1); // Also using useState for mediaCurrentPage
+const panel = ref();
 
-const { data: items } = await $useFetch("/press");
+const { data: media, refresh } = await $useFetch(
+    () => "/press" + `?page=${mediaCurrentPage.value}` + `&type=media`,
+    {
+        watch: [mediaCurrentPage],
+        onResponse(context) {
+            const mediaTotalPagesHeader = context.response.headers.get("x-wp-totalpages");
+            // Only update mediaTotalPages if it's not already set, or if it's a different value
+            if (
+                mediaTotalPagesHeader &&
+                parseInt(mediaTotalPagesHeader) !== mediaTotalPages.value
+            ) {
+                mediaTotalPages.value = parseInt(mediaTotalPagesHeader);
+            }
+        },
+    }
+);
+
+const { data: releases } = await $useFetch(
+    () => "/press" + `?page=${releasesCurrentPage.value}` + `&type=release`,
+    {
+        watch: [releasesCurrentPage],
+        onResponse(context) {
+            const releasesTotalPagesHeader = context.response.headers.get("x-wp-totalpages");
+            // Only update mediaTotalPages if it's not already set, or if it's a different value
+            if (
+                releasesTotalPagesHeader &&
+                parseInt(releasesTotalPagesHeader) !== releasesTotalPages.value
+            ) {
+                releasesTotalPages.value = parseInt(releasesTotalPagesHeader);
+            }
+        },
+    }
+);
+
 const { data: sources } = await $useFetch("/source");
 
 setSeo("media");
@@ -79,6 +139,10 @@ setSeo("media");
 .tabs-header {
     display: flex;
     gap: 1rem;
+}
+
+.tabs {
+    padding-bottom: var(--content-padding);
 }
 
 .releases {
@@ -173,5 +237,25 @@ setSeo("media");
         max-width: unset;
         border-bottom: 1px solid var(--color-white);
     }
+}
+
+.page-number {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-white);
+    aspect-ratio: 1/1;
+
+    &:hover,
+    &.active {
+        background-color: var(--color-white);
+        color: var(--color-black);
+    }
+}
+
+.pagination {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
 }
 </style>

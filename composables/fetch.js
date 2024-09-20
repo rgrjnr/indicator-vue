@@ -12,7 +12,7 @@ export const $useFetch = (request, opts = {}) => {
         ...opts,
         query: {
             _embed: true,
-            per_page: 100,
+            per_page: 25,
             lang: l,
             ...opts?.query,
         },
