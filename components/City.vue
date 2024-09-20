@@ -461,7 +461,7 @@ function render() {
 <style scoped>
 .three-container {
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     overflow: hidden;
     position: absolute;
     bottom: 0;

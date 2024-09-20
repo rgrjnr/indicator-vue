@@ -116,7 +116,7 @@
                 <circle opacity="0.1" cx="531" cy="531" r="321.5" stroke="#E2FDFF" />
             </svg>
             <h1 :content="$t('boosting deep tech heroes')" class="split-text relative" ref="h1">
-                {{ $t("boosting deep tech heroes") }}
+                {{ $t("boosting deep-tech heroes") }}
             </h1>
             <svg
                 width="362"
@@ -158,7 +158,7 @@
                     left: 50%;
                     width: 68%;
                     transform: translate(-40%, -50%);
-                    max-height: calc(100vh - 20rem);
+                    max-height: calc(100svh - 20rem);
                 " />
             <div id="game-buttons">
                 <div class="game-button">

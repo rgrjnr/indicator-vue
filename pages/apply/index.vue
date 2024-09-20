@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="panel">
-            <div class="p-4 sm:p-16 max-w-[40rem] grid gap-4">
+            <div class="p-4 sm:p-16 max-w-[40rem] grid gap-4" id="main-text">
                 <div class="uppercase opacity-50 text-sm scramble">{{ $t("apply.tag") }}</div>
                 <h1 class="!text-lg normal-case">
                     {{ $t("apply.intro") }}
@@ -17,7 +17,7 @@
                 viewBox="0 0 238 81"
                 fill="none"
                 @click="navigateTo(localePath('/apply/form'))"
-                class="apply-btn-form"
+                class="apply-btn-form bg-black"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M237.5 57.5L214 81H0V57.5V23.5L22 0H237.5V57.5Z" fill="#FFDA29" />
                 <path
@@ -78,7 +78,7 @@ onMounted(() => {
     pointer-events: none;
 
     border-image-slice: 50 577 548 48;
-    border-image-width: 50px 577px 548px 48px;
+    border-image-width: 50px calc(100svh - 25rem) calc(100svh - 25rem) 48px;
     border-image-outset: 0px 0px 0px 0px;
     border-image-repeat: stretch stretch;
     border-image-source: url("/images/bg-apply.svg");
@@ -96,6 +96,12 @@ onMounted(() => {
         animation-name: flicker-on;
         animation-duration: 300ms;
         animation-fill-mode: forwards;
+    }
+}
+
+@media screen and (max-height: 50rem) {
+    #main-text {
+        padding: 5svh;
     }
 }
 </style>

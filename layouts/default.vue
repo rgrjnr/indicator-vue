@@ -73,7 +73,7 @@
 
 $ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
 $ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-$screen-background: #121010;
+$screen-background: rgb(13 23 26);
 
 #ruler {
     position: absolute;
@@ -104,7 +104,7 @@ body {
 
     // flicker
     &::after {
-        // content: " ";
+        content: " ";
         display: block;
         position: absolute;
         top: 0;
@@ -118,7 +118,7 @@ body {
     }
 
     &::before {
-        // content: " ";
+        content: " ";
         display: block;
         position: absolute;
         top: 0;
@@ -126,13 +126,13 @@ body {
         bottom: 0;
         right: 0;
         background: linear-gradient(
-                transparentize($screen-background, 1) 50%,
-                transparentize(darken($screen-background, 10), 0.75) 50%
+                transparentize($screen-background, 1) 0%,
+                transparentize(darken($screen-background, 10), 0.95) 50%
             ),
             linear-gradient(
                 90deg,
-                transparentize(#ff0000, 0.94),
-                transparentize(#00ff00, 0.98),
+                transparentize(#ff0000, 0.98),
+                transparentize(#00ff00, 0.97),
                 transparentize(#0000ff, 0.94)
             );
         z-index: 10002;

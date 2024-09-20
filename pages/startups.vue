@@ -84,9 +84,12 @@
             </svg>
         </div>
         <div class="panel panel-stretch overflow-y-visible panel-main">
-            <div id="filters">
+            <div id="filters" class="scrollable">
                 <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
-                    {{ $t("startups.filters") }}
+                    <template v-if="tags.filter((tag) => tag.id == currentTag).length > 0">
+                        Showing <{{ tags.filter((tag) => tag.id == currentTag)[0].name }}>
+                    </template>
+                    <template v-else>{{ $t("startups.filters") }}</template>
                     <svg
                         viewBox="0 0 431 161"
                         fill="none"
@@ -97,17 +100,37 @@
                             vector-effect="non-scaling-stroke" />
                     </svg>
                 </button>
-                <div :class="{ 'filter-group': true, hide: !showFilter }" v-for="group in groups">
-                    <div class="uppercase opacity-50 text-sm">{{ group.name }}</div>
+                <button
+                    v-if="currentTag"
+                    @click="changeFilter(null)"
+                    style="
+                        position: absolute;
+                        border: 1px solid var(--color-white);
+                        height: 2rem;
+                        width: 2rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        right: 0;
+                        transform: translateX(calc(100% - 1px));
+                    ">
+                    x
+                </button>
+                <div class="filter-groups scrollable overflow-y-auto">
                     <div
-                        v-for="(tag, i) in tags.filter((t) => t.parent == group.id)"
-                        :key="tag.id"
-                        :class="{
-                            'filter-item': true,
-                            active: currentTag == tag.id,
-                        }"
-                        @click="changeFilter(tag.id)">
-                        {{ tag.name }}
+                        :class="{ 'filter-group': true, hide: !showFilter }"
+                        v-for="group in groups">
+                        <div class="uppercase opacity-50 text-sm mb-2 mt-2">{{ group.name }}</div>
+                        <div
+                            v-for="(tag, i) in tags.filter((t) => t.parent == group.id)"
+                            :key="tag.id"
+                            :class="{
+                                'filter-item': true,
+                                active: currentTag == tag.id,
+                            }"
+                            @click="changeFilter(tag.id)">
+                            {{ tag.name }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,6 +156,7 @@
                     @click="
                         navigateTo(localePath('/startups/' + startup.slug));
                         showFilter = false;
+                        forceHide = false;
                     "
                     :style="
                         startup.position &&
@@ -172,7 +196,7 @@
             :class="{
                 panel: true,
                 'startups-panel': true,
-                active: useRoute().params.slug,
+                active: !forceHide && useRoute().params.slug,
                 scrollable: true,
                 'overflow-y-auto': true,
             }">
@@ -199,6 +223,8 @@ const groups = tags.value.filter((g) => g.parent == 0);
 
 const config = useRuntimeConfig();
 const route = useRoute();
+
+const forceHide = ref(false);
 
 setSeo("startups");
 
@@ -309,6 +335,7 @@ const changeFilter = async (tag) => {
         }
     });
 
+    forceHide.value = true;
     showFilter.value = false;
 
     reorderConstellation();
@@ -521,21 +548,28 @@ onMounted(() => {
     position: absolute;
     display: grid;
     z-index: 100;
-    gap: 1rem;
     min-width: 10rem;
+    padding-bottom: var(--content-padding);
+    gap: 0.5rem;
 }
 
+.filter-groups {
+    max-height: calc(100svh - 6rem - 4.25rem - 3.5rem - var(--content-padding));
+    padding: 0.25rem 1rem var(--content-padding) 0;
+    display: grid;
+    gap: 0.5rem;
+}
 .filter-group.hide {
     display: none;
 }
 .filter-group {
     display: grid;
-    background-color: var(--color-black);
+    background: linear-gradient(90deg, var(--color-black), transparent);
     border: 1px solid var(--color-white);
-    padding: 1rem;
     animation-name: flicker-on;
     animation-duration: 500ms;
     animation-fill-mode: forwards;
+    padding: 1rem;
 }
 
 .filter-group {
