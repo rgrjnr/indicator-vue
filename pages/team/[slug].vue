@@ -22,13 +22,15 @@
             </span>
         </h2>
 
-        <div>
-            <div v-for="startup in member[0].startups_involved"></div>
-        </div>
-
         <div class="member-tags">
             <div
-                v-for="tag in ['role', 'bio', 'personal_achievements', 'education']"
+                v-for="tag in [
+                    'role',
+                    'bio',
+                    'personal_achievements',
+                    'education',
+                    'languages_spoken',
+                ]"
                 class="member-tag">
                 <div class="member-tag-icon">
                     <img :src="`/images/${tag}.svg`" style="min-width: 2rem; height: auto" />
@@ -40,9 +42,14 @@
                     <div v-if="tag == 'education'">
                         <div v-for="item in member[0][tag]">
                             <strong>{{ item.name }}</strong>
-                            <br />
+                            &nbsp;
                             <small class="opacity-50">{{ item.description }}</small>
                         </div>
+                    </div>
+                    <div v-else-if="tag == 'languages_spoken'">
+                        <span v-for="item in member[0][tag]" class="language-spoken">
+                            {{ $t("language." + item) }}
+                        </span>
                     </div>
                     <div v-else="tag == 'education'">
                         {{ member[0][tag] }}
@@ -54,7 +61,6 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
 const route = useRoute();
 
 const localePath = useLocalePath();
@@ -81,6 +87,9 @@ setSeo(route.params.slug, "team");
 </script>
 
 <style lang="scss">
+.language-spoken:not(:last-child)::after {
+    content: ", ";
+}
 .member-tags {
     display: grid;
     gap: 1rem;

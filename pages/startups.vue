@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content overflow-y-scroll md:overflow-y-visible">
         <div class="startup-tutorial">
             <div class="instructions">
                 {{ $t("startups.instructions") }}
@@ -83,7 +83,7 @@
                 <circle cx="296.5" cy="457.5" r="3.5" fill="#E2FDFF" />
             </svg>
         </div>
-        <div class="panel panel-stretch overflow-y-visible panel-main">
+        <div class="panel panel-main">
             <div id="filters" :class="{ active: currentTag }">
                 <button class="filter-btn shape-btn" @click="showFilter = !showFilter">
                     <template v-if="tags.filter((tag) => tag.id == currentTag).length > 0">
@@ -153,6 +153,7 @@
                         'select-none': true,
                         active: useRoute().params.slug == startup.slug,
                         'current-group': startup.group.includes(currentTag),
+                        exit: startup.group.includes(exitGroup),
                     }"
                     @click="
                         navigateTo(localePath('/startups/' + startup.slug));
@@ -221,9 +222,7 @@ const { data: startups } = await $useFetch("/startups");
 const { data: tags } = await $useFetch("/group");
 
 const groups = tags.value.filter((g) => g.parent == 0);
-
-const config = useRuntimeConfig();
-const route = useRoute();
+const exitGroup = tags.value.filter((g) => g.slug == "exit")[0].id;
 
 const forceHide = ref(false);
 
@@ -284,7 +283,7 @@ function ease(x) {
 }
 
 const render = () => {
-    rotation.value += 0.05 + extraRotationSpeed.value;
+    rotation.value += 0.025 + extraRotationSpeed.value;
 
     if (rotating.value) {
         const duration = 100;
@@ -350,8 +349,8 @@ onMounted(() => {
         const box = space.value.getBoundingClientRect();
         startups.value.forEach((item, i) => {
             startups.value[i].position = [
-                randomBetween(10, box.width - 10),
-                randomBetween(0, box.height - 10),
+                randomBetween(20, box.width - 20),
+                randomBetween(50, box.height - 50),
                 randomBetween(-1 * box.width, box.width) / 3,
             ];
         });
@@ -492,6 +491,10 @@ onMounted(() => {
     cursor: pointer;
 }
 
+.exit .startup-star {
+    background-color: #989898;
+}
+
 .startups-space {
     transform-style: preserve-3d;
     transform-origin: 50%;
@@ -587,11 +590,11 @@ onMounted(() => {
     animation-delay: 300ms;
 }
 
-@media screen and (max-width: 80rem) {
-    .filter-svg {
-        height: 3.5rem;
-    }
+.filter-svg {
+    max-height: 3.5rem !important;
+}
 
+@media screen and (max-width: 80rem) {
     .filter-groups {
         max-height: fit-content;
     }
@@ -607,13 +610,14 @@ onMounted(() => {
         display: none;
     }
     .panel-main {
-        overflow-y: scroll;
+        margin-bottom: var(--content-padding);
     }
     .startups-space {
         display: grid;
         grid-template-columns: 1fr 1fr;
         position: relative;
         gap: 3px;
+        padding-bottom: var(--content-padding);
 
         &:has(.current-group) {
             .startup-wrapper:not(.current-group) {

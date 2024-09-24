@@ -13,10 +13,11 @@
                     vector-effect="non-scaling-stroke" />
             </svg>
         </nuxt-link>
-        <h2 class="lowercase">
-            <span class="block text-primary text-lg mb-4" ref="title">
+        <h2 class="lowercase mb-4">
+            <span class="block text-primary text-lg" ref="title">
                 {{ startup[0].title.rendered }}
             </span>
+            {{ startup[0].group.map((g) => g.name) }}
         </h2>
 
         <div class="startup-tags">
@@ -52,7 +53,6 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
 const route = useRoute();
 const { $gsap } = useNuxtApp();
 const title = ref();

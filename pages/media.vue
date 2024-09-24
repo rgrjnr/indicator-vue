@@ -130,7 +130,7 @@ const { data: releases } = await $useFetch(
     }
 );
 
-const { data: sources } = await $useFetch("/source");
+const { data: sources } = await $useFetch("/source", { query: { per_page: 100 } });
 
 setSeo("media");
 </script>

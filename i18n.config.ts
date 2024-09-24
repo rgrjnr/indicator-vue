@@ -8,6 +8,12 @@ export default defineI18nConfig(() => ({
 
     messages: {
         en: {
+            language: {
+                en: "English",
+                pt: "Portuguese",
+                de: "German",
+                fr: "French",
+            },
             welcome: "Welcome",
             home: { title: "Home", intro: "Start your investment process today!" },
             thesis: { title: "Thesis" },
@@ -33,6 +39,7 @@ export default defineI18nConfig(() => ({
                     instagram: "Instagram",
                     youtube: "Youtube",
                     email: "Email",
+                    languages_spoken: "Languages spoken",
                 },
             },
             startups: {
@@ -63,6 +70,12 @@ export default defineI18nConfig(() => ({
             go_back: "Go Back",
         },
         pt: {
+            language: {
+                en: "Inglês",
+                pt: "Português",
+                de: "Alemão",
+                fr: "Francês",
+            },
             welcome: "Bem-vindo",
             home: { title: "Home", intro: "Inicie seu processo de investimento hoje!" },
             thesis: { title: "Tese" },
@@ -89,6 +102,7 @@ export default defineI18nConfig(() => ({
                     instagram: "Instagram",
                     youtube: "Youtube",
                     email: "Email",
+                    languages_spoken: "Idiomas falados",
                 },
             },
             startups: {
