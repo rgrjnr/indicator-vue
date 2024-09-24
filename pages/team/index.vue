@@ -12,6 +12,8 @@
 const video = ref();
 
 onMounted(() => {
-    video.value.play();
+    if (process.client && window.innerWidth > 80 * 16) {
+        video.value.play();
+    }
 });
 </script>
