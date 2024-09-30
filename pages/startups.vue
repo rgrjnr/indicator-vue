@@ -426,8 +426,8 @@ onMounted(() => {
 .startup-wrapper {
     position: absolute;
     border-radius: 50%;
-    width: 8rem;
-    height: 8rem;
+    width: 4rem;
+    height: 4rem;
 
     &:hover,
     &.active {
@@ -474,7 +474,7 @@ onMounted(() => {
 }
 
 .startup-star {
-    width: 100%;
+    width: 8rem;
     aspect-ratio: 1/1;
     height: auto;
     background-color: var(--color-white);

@@ -43,7 +43,7 @@
                         <div v-for="item in member[0][tag]">
                             <strong>{{ item.name }}</strong>
                             &nbsp;
-                            <small class="opacity-50">{{ item.description }}</small>
+                            <small class="opacity-50 block">{{ item.description }}</small>
                         </div>
                     </div>
                     <div v-else-if="tag == 'languages_spoken'">

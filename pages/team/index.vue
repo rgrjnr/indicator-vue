@@ -15,7 +15,9 @@ const showVideo = ref(false);
 onMounted(() => {
     if (process.client && window.innerWidth > 80 * 16) {
         showVideo.value = true;
-        video.value.play();
+        try {
+            video.value.play();
+        } catch (e) {}
     }
 });
 </script>
