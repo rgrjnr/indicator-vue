@@ -1,5 +1,13 @@
 <template>
-    <div class="content overflow-y-scroll md:overflow-y-visible">
+    <div class="content">
+        <div
+            class="lines"
+            style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none">
+            <div
+                v-for="line in lines"
+                class="constellation-line"
+                :style="`transform: translate(${line.x}px, ${line.y}px) rotate(${line.angle}deg) scaleX(${line.scaleX})`"></div>
+        </div>
         <div class="startup-tutorial">
             <div class="instructions">
                 {{ $t("startups.instructions") }}
@@ -135,13 +143,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Lines -->
-            <div
-                v-for="(line, i) in lines"
-                class="constellation-line"
-                :style="`transform: translate(${line.x}px, ${line.y}px) rotate(${line.angle}deg) scaleX(${line.scaleX})`"></div>
-
-            <div class="startups-space" :style="`transform: rotateY(${rotation}deg)`" ref="space">
+            <div class="startups-space" :style="``" ref="space">
                 <!-- Stars -->
                 <div
                     v-for="startup in startups"
@@ -156,7 +158,7 @@
                         exit: startup.group.includes(exitGroup),
                     }"
                     @click="
-                        navigateTo(localePath('/startups/' + startup.slug));
+                        navigateTo(localePath('/portfolio/' + startup.slug));
                         showFilter = false;
                         forceHide = false;
                     "
@@ -166,30 +168,32 @@
                             startup.position[1] || 0
                         }px, ${startup.position[2] || 0}px) rotateY(${-1 * rotation}deg)`
                     ">
-                    <svg
-                        width="362"
-                        height="362"
-                        viewBox="0 0 362 362"
-                        fill="none"
-                        class="startup-focus"
-                        v-if="useRoute().params.slug == startup.slug"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <path
-                                d="M75.0265 67.078L153.137 28.0346L239.957 37.419L307.92 92.2519L335.45 175.124L313.805 259.724L249.858 319.193L163.912 334.648L83.2531 301.184L33.4907 229.425L30.424 142.153L75.0265 67.078Z"
-                                stroke="#FFDA29" />
-                            <path
-                                d="M84.8849 31.6827L180.567 3.58788L276.249 31.6827L341.553 107.047L355.744 205.753L314.319 296.463L230.428 350.377H130.706L46.8152 296.463L5.3894 205.753L19.5812 107.047L84.8849 31.6827Z"
-                                stroke="#FFDA29" />
-                        </g>
-                    </svg>
-
-                    <div class="startup-star">
-                        <img
-                            v-if="startup._embedded['wp:featuredmedia']"
-                            :src="startup._embedded['wp:featuredmedia'][0].source_url"
-                            :alt="startup.title.rendered"
-                            class="startup-logo" />
+                    <div class="star-reference"></div>
+                    <div class="star-rotation">
+                        <svg
+                            width="362"
+                            height="362"
+                            viewBox="0 0 362 362"
+                            fill="none"
+                            class="startup-focus"
+                            v-if="useRoute().params.slug == startup.slug"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path
+                                    d="M75.0265 67.078L153.137 28.0346L239.957 37.419L307.92 92.2519L335.45 175.124L313.805 259.724L249.858 319.193L163.912 334.648L83.2531 301.184L33.4907 229.425L30.424 142.153L75.0265 67.078Z"
+                                    stroke="#FFDA29" />
+                                <path
+                                    d="M84.8849 31.6827L180.567 3.58788L276.249 31.6827L341.553 107.047L355.744 205.753L314.319 296.463L230.428 350.377H130.706L46.8152 296.463L5.3894 205.753L19.5812 107.047L84.8849 31.6827Z"
+                                    stroke="#FFDA29" />
+                            </g>
+                        </svg>
+                        <div class="startup-star">
+                            <img
+                                v-if="startup._embedded['wp:featuredmedia']"
+                                :src="startup._embedded['wp:featuredmedia'][0].source_url"
+                                :alt="startup.title.rendered"
+                                class="startup-logo" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -278,35 +282,37 @@ const reorderConstellation = () => {
     constellation.value = reordered;
 };
 
-function ease(x) {
-    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-}
-
 const render = () => {
-    rotation.value += 0.025 + extraRotationSpeed.value;
+    // if (rotating.value) {
+    //     const duration = 100;
+    //     const peak = 3;
 
-    if (rotating.value) {
-        const duration = 100;
-        const peak = 3;
-
-        rotationTime.value += 1 / duration;
-        const t = ease(rotationTime.value);
-        extraRotationSpeed.value = (-4 * t * t + 4 * t) * peak;
-        if (rotationTime.value >= 1) rotating.value = false;
-    } else {
-        rotationTime.value = 0; // Reset time when not rotating
-        extraRotationSpeed.value = 0;
-    }
+    //     rotationTime.value += 1 / duration;
+    //     const t = ease(rotationTime.value);
+    //     extraRotationSpeed.value = (-4 * t * t + 4 * t) * peak;
+    //     if (rotationTime.value >= 1) rotating.value = false;
+    // } else {
+    //     rotationTime.value = 0; // Reset time when not rotating
+    //     extraRotationSpeed.value = 0;
+    // }
 
     lines.value = [];
 
     for (let i = 0; i < constellation.value.length - 1; i++) {
+        if (i == 1)
+            console.log(constellation.value[i], constellation.value[i].getBoundingClientRect());
         const a = constellation.value[i].getBoundingClientRect();
         const b = constellation.value[i + 1].getBoundingClientRect();
 
+        // Calculate the center coordinates of the bounding boxes
+        const ax = a.x + a.width / 2;
+        const ay = a.y + a.height / 2;
+        const bx = b.x + b.width / 2;
+        const by = b.y + b.height / 2;
+
         // Calculate the distance between the points
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
+        const dx = bx - ax;
+        const dy = by - ay;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         // Calculate the rotation angle
@@ -314,8 +320,8 @@ const render = () => {
 
         // Create a new line object
         const line = {
-            x: a.x.toFixed(2),
-            y: a.y.toFixed(2),
+            x: ax.toFixed(4),
+            y: ay.toFixed(4),
             angle: angle.toFixed(2),
             scaleX: distance.toFixed(2),
         };
@@ -359,8 +365,23 @@ onMounted(() => {
     }
 });
 </script>
-
 <style lang="scss">
+// Layout and positioning
+.page-portfolio {
+    @media screen and (max-width: 80rem) {
+        .content {
+            overflow-y: scroll;
+        }
+    }
+}
+
+.panel-main {
+    @media screen and (max-width: 80rem) {
+        margin-bottom: var(--content-padding);
+    }
+}
+
+// Startup tutorial
 .startup-tutorial {
     width: 401px;
     height: 532px;
@@ -387,12 +408,16 @@ onMounted(() => {
         margin: 3rem;
         text-align: center;
     }
+
+    @media screen and (max-width: 80rem) {
+        display: none;
+    }
 }
 
+// Constellation
 .constellation-mark {
     width: 1rem;
     height: 1rem;
-    // background-color: blue;
     position: absolute;
 }
 
@@ -402,9 +427,57 @@ onMounted(() => {
     background-color: var(--color-white);
     position: fixed;
     transform-origin: left;
-    top: 4rem;
-    left: 4rem;
 }
+
+// Filters
+#filters {
+    position: absolute;
+    display: grid;
+    z-index: 100;
+    min-width: 10rem;
+    padding-bottom: var(--content-padding);
+    gap: 0.5rem;
+
+    @media screen and (max-width: 80rem) {
+        position: relative;
+        &.active {
+            width: calc(100% - 2rem);
+        }
+    }
+}
+
+.filter-groups {
+    max-height: calc(100svh - 6rem - 4.25rem - 3.5rem - var(--content-padding));
+    padding: 0.25rem 1rem var(--content-padding) 0;
+    display: grid;
+    gap: 0.5rem;
+
+    @media screen and (max-width: 80rem) {
+        max-height: fit-content;
+    }
+}
+
+.filter-group {
+    display: grid;
+    background: var(--color-black);
+    border: 1px solid var(--color-white);
+    animation-name: flicker-on;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+    padding: 1rem;
+    opacity: 0;
+
+    &.hide {
+        display: none;
+    }
+
+    @for $i from 2 through 4 {
+        &:nth-of-type(#{$i}) {
+            animation-delay: #{($i - 1) * 100}ms;
+        }
+    }
+}
+
 .filter-item {
     display: inline;
     width: fit-content;
@@ -423,17 +496,80 @@ onMounted(() => {
         color: var(--color-black);
     }
 }
+
+.filter-svg {
+    max-height: 3.5rem !important;
+}
+
+// Startups space
+.startups-space {
+    --orbit-duration: 60s;
+    transform-style: preserve-3d;
+    transform-origin: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    animation: orbit var(--orbit-duration) linear infinite;
+
+    @media screen and (max-width: 80rem) {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        position: relative;
+        gap: 3px;
+        padding-bottom: var(--content-padding);
+
+        &:has(.current-group) {
+            .startup-wrapper:not(.current-group) {
+                display: none;
+            }
+        }
+    }
+
+    @media screen and (max-width: 60rem) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 40rem) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.star-rotation {
+    animation: counter-orbit var(--orbit-duration) linear infinite;
+    transform-style: preserve-3d;
+    transform-origin: 50%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+// Startup wrapper
+.star-reference {
+    transform-style: preserve-3d;
+    transition: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    animation: counter-orbit var(--orbit-duration) linear infinite;
+}
 .startup-wrapper {
     position: absolute;
-    border-radius: 50%;
+    // border-radius: 50%;
     width: 4rem;
     height: 4rem;
+    transform-style: preserve-3d;
+    transform-origin: center center;
 
     &:hover,
     &.active {
         .startup-star {
             transform: translate(-50%, -50%) scale(1);
-
             animation-name: flicker-on;
             animation-duration: 150ms;
             animation-fill-mode: forwards;
@@ -442,6 +578,12 @@ onMounted(() => {
 
         .startup-logo {
             opacity: 1;
+        }
+
+        .star-reference {
+            transform-style: preserve-3d;
+            position: absolute;
+            z-index: 99999;
         }
     }
 
@@ -464,6 +606,18 @@ onMounted(() => {
             filter: brightness(0) invert(1);
         }
     }
+
+    @media screen and (max-width: 80rem) {
+        position: relative;
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1/1;
+
+        &:hover .startup-logo {
+            filter: brightness(0);
+        }
+    }
 }
 
 .startup-logo {
@@ -471,6 +625,13 @@ onMounted(() => {
     filter: brightness(0);
     max-height: 4rem;
     object-fit: contain;
+
+    @media screen and (max-width: 80rem) {
+        opacity: 1;
+        max-width: 15rem;
+        width: 100%;
+        filter: brightness(0) invert(1);
+    }
 }
 
 .startup-star {
@@ -489,22 +650,52 @@ onMounted(() => {
     left: 50%;
     position: absolute;
     cursor: pointer;
+
+    @media screen and (max-width: 80rem) {
+        transform: translate(-50%, -50%) scale(1);
+        position: relative;
+        border-radius: 0;
+        background-color: transparent;
+        border: 1px solid var(--color-white);
+        width: 100%;
+    }
 }
 
 .exit .startup-star {
     background-color: #989898;
 }
 
-.startups-space {
-    transform-style: preserve-3d;
-    transform-origin: 50%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+.current-group {
+    .startup-star {
+        background-color: var(--color-primary);
+    }
+
+    @media screen and (max-width: 80rem) {
+        .startup-star {
+            background-color: transparent;
+        }
+    }
 }
 
+// Startup focus
+.startup-focus {
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    path {
+        transform-origin: center;
+        animation: rotate 60s linear infinite;
+
+        &:nth-child(2) {
+            animation-duration: 30s;
+        }
+    }
+}
+
+// Startups panel
 .startups-panel {
     background-image: url("/images/startups-panel.svg");
     background-size: 100% 100%;
@@ -517,151 +708,16 @@ onMounted(() => {
     &.active {
         transform: translate(0);
     }
-}
 
-.startup-focus {
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    path {
-        transform-origin: center;
-        animation: rotate 60s linear infinite;
-    }
-
-    path:nth-child(2) {
-        animation-duration: 30s;
-    }
-}
-
-.current-group {
-    .startup-star {
-        background-color: var(--color-primary);
-    }
-}
-
-@keyframes rotate {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-#filters {
-    position: absolute;
-    display: grid;
-    z-index: 100;
-    min-width: 10rem;
-    padding-bottom: var(--content-padding);
-    gap: 0.5rem;
-}
-
-.filter-groups {
-    max-height: calc(100svh - 6rem - 4.25rem - 3.5rem - var(--content-padding));
-    padding: 0.25rem 1rem var(--content-padding) 0;
-    display: grid;
-    gap: 0.5rem;
-}
-.filter-group.hide {
-    display: none;
-}
-.filter-group {
-    display: grid;
-    background: var(--color-black);
-    border: 1px solid var(--color-white);
-    animation-name: flicker-on;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
-    padding: 1rem;
-}
-
-.filter-group {
-    opacity: 0;
-}
-
-.filter-group:nth-of-type(2) {
-    animation-delay: 100ms;
-}
-.filter-group:nth-of-type(3) {
-    animation-delay: 200ms;
-}
-.filter-group:nth-of-type(4) {
-    animation-delay: 300ms;
-}
-
-.filter-svg {
-    max-height: 3.5rem !important;
-}
-
-@media screen and (max-width: 80rem) {
-    .filter-groups {
-        max-height: fit-content;
-    }
-
-    #filters {
-        position: relative;
-    }
-
-    #filters.active {
-        width: calc(100% - 2rem);
-    }
-    .startup-tutorial {
-        display: none;
-    }
-    .panel-main {
-        margin-bottom: var(--content-padding);
-    }
-    .startups-space {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        position: relative;
-        gap: 3px;
-        padding-bottom: var(--content-padding);
-
-        &:has(.current-group) {
-            .startup-wrapper:not(.current-group) {
-                display: none;
-            }
-        }
-    }
-
-    .current-group .startup-star {
-        background-color: transparent;
-    }
-
-    .startup-wrapper {
-        position: relative;
-        border-radius: 0;
-        width: auto;
-        height: auto;
-        aspect-ratio: 1/1;
-
-        &:hover .startup-logo {
-            filter: brightness(0);
-        }
-    }
-
-    .startup-star {
-        transform: translate(-50%, -50%) scale(1);
-        border-radius: 0;
-        background-color: transparent;
-        border: 1px solid var(--color-white);
-    }
-
-    .startup-logo {
-        opacity: 1;
-        max-width: 15rem;
-        width: 100%;
-        filter: brightness(0) invert(1);
-    }
-
-    .startups-panel {
+    @media screen and (max-width: 80rem) {
         display: none;
         margin-left: calc(-1 * var(--content-padding) - 1px);
     }
+}
 
-    .page-startups-slug {
+// Specific page styles
+.page-portfolio-slug {
+    @media screen and (max-width: 80rem) {
         .panel-main {
             display: none;
         }
@@ -685,6 +741,25 @@ onMounted(() => {
             overflow: unset;
             width: 100%;
         }
+    }
+}
+
+// Animations
+@keyframes orbit {
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes counter-orbit {
+    to {
+        transform: rotateY(-360deg);
+    }
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
     }
 }
 </style>

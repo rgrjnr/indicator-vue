@@ -44,7 +44,7 @@ export default defineI18nConfig(() => ({
                 },
             },
             startups: {
-                title: "Startups",
+                title: "Portfolio",
                 short_description: "Description",
                 long_description: "Description",
                 product_description: "Product",
@@ -108,7 +108,7 @@ export default defineI18nConfig(() => ({
                 },
             },
             startups: {
-                title: "Startups",
+                title: "Portfólio",
                 short_description: "Descrição",
                 long_description: "Descrição",
                 product_description: "Produto",
