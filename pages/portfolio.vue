@@ -511,7 +511,6 @@ onMounted(() => {
     right: 0;
     left: 0;
     bottom: 0;
-    animation: orbit var(--orbit-duration) linear infinite;
 
     @media screen and (max-width: 80rem) {
         display: grid;
@@ -537,11 +536,12 @@ onMounted(() => {
 }
 
 .star-rotation {
-    animation: counter-orbit var(--orbit-duration) linear infinite;
     transform-style: preserve-3d;
     transform-origin: 50%;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     position: absolute;
 }
 
@@ -556,7 +556,6 @@ onMounted(() => {
     left: 0;
     right: 0;
     bottom: 0;
-    animation: counter-orbit var(--orbit-duration) linear infinite;
 }
 .startup-wrapper {
     position: absolute;
@@ -741,6 +740,20 @@ onMounted(() => {
             overflow: unset;
             width: 100%;
         }
+    }
+}
+
+@media screen and (min-width: 80rem) {
+    .startups-space {
+        animation: orbit var(--orbit-duration) linear infinite;
+    }
+
+    .star-rotation {
+        animation: counter-orbit var(--orbit-duration) linear infinite;
+    }
+
+    .star-reference {
+        animation: counter-orbit var(--orbit-duration) linear infinite;
     }
 }
 
