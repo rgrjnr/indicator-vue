@@ -82,7 +82,9 @@ export default defineNuxtConfig({
     plugins: [{ src: "~/plugins/gsap.js", mode: "client" }],
     routeRules: {
         "/apply": { redirect: "/start" },
+        "/apply/*": { redirect: "/start/*" },
         "/pt/apply": { redirect: "/pt/start" },
+        "/pt/apply/*": { redirect: "/pt/start/*" },
         "/startups": { redirect: "/portfolio" },
         "/pt/startups": { redirect: "/pt/portfolio" },
         "/pt/team": { redirect: "/pt/time" },

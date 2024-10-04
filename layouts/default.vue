@@ -1,5 +1,5 @@
 <template>
-    <div id="website" :class="[`page-${useRoute().name.split('_')[0]}`]">
+    <div id="website" :class="[`page-${useRoute().name?.split('_')[0] || 'error'}`]">
         <NuxtLoadingIndicator />
         <nav
             class="flex items-center justify-between px-6 py-4 border-b-[1px] border-solid border-white text-sm relative">

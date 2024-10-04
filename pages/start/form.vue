@@ -511,7 +511,7 @@ const onSubmit = async () => {
             baseURL: "https://api.indicator.capital/wp-json",
         });
 
-        navigateTo("/apply/response/" + submission.value.post_id);
+        navigateTo("/start/response/" + submission.value.post_id);
         // Handle successful validation (e.g., submit the form data to an API)
     } catch (error) {
         if (error instanceof z.ZodError) {

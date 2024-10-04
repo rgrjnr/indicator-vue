@@ -69,6 +69,11 @@ export default defineI18nConfig(() => ({
                 "December",
             ],
             go_back: "Go Back",
+            404: {
+                title: "Page not found",
+                description: "I guess that was probably eaten by a monster, anyways... ",
+                home: "Go to Home",
+            },
         },
         pt: {
             language: {
@@ -133,6 +138,11 @@ export default defineI18nConfig(() => ({
                 "Dezembro",
             ],
             go_back: "Voltar",
+            404: {
+                title: "Nada para ver aqui",
+                description: "Página não encontrada",
+                home: "Voltar para Home",
+            },
         },
     },
 }));

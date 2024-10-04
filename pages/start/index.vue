@@ -16,7 +16,7 @@
                 height="81"
                 viewBox="0 0 238 81"
                 fill="none"
-                @click="navigateTo(localePath('/apply/form'))"
+                @click="navigateTo(localePath('/start/form'))"
                 class="apply-btn-form bg-black"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M237.5 57.5L214 81H0V57.5V23.5L22 0H237.5V57.5Z" fill="#FFDA29" />
