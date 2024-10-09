@@ -63,10 +63,20 @@
                     stroke-linejoin="round"></path>
             </svg>
         </a>
+
+        <footer>
+            <div>
+                © {{ new Date().getFullYear() }} Indicator Capital.
+                {{ $t("footer.all_rights_reserved") }}.&nbsp;
+                <a :href="localePath('/legal')">{{ $t("footer.legal_information") }}</a>
+            </div>
+        </footer>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+const localePath = useLocalePath();
+</script>
 
 <style lang="scss">
 @use "sass:math";
@@ -83,6 +93,25 @@ $screen-background: rgb(13 23 26);
     height: 0.55rem;
     width: auto;
     max-width: unset;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: var(--content-padding);
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+    font-size: 0.875rem;
+
+    @media screen and (max-width: 40rem) {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        height: auto;
+        padding: 0.25rem;
+    }
 }
 
 @keyframes flicker {

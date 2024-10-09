@@ -74,6 +74,10 @@ export default defineI18nConfig(() => ({
                 description: "I guess that was probably eaten by a monster, anyways... ",
                 home: "Go to Home",
             },
+            footer: {
+                all_rights_reserved: "All rights reserved.",
+                legal_information: "Legal information",
+            },
         },
         pt: {
             language: {
@@ -142,6 +146,10 @@ export default defineI18nConfig(() => ({
                 title: "Nada para ver aqui",
                 description: "Página não encontrada",
                 home: "Voltar para Home",
+            },
+            footer: {
+                all_rights_reserved: "Todos os direitos reservados.",
+                legal_information: "Informações legais",
             },
         },
     },

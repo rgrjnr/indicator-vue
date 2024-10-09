@@ -242,6 +242,7 @@ h2 {
 @media screen and (max-width: 80rem) {
     body {
         padding: 2rem;
+        --content-padding: 2rem;
     }
 
     video {

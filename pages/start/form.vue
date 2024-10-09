@@ -427,6 +427,7 @@ const sections = [
 const currentSection = ref(0);
 const file = ref();
 const panel = ref();
+const loading = ref(false);
 
 const createSchema = (sections) => {
     const shape = {};
@@ -490,7 +491,9 @@ const verifyURL = (fieldName) => {
 };
 
 const onSubmit = async () => {
+    if (loading.value) return;
     try {
+        loading.value = true;
         const body = {};
         for (var key in formData) {
             body[key] = formData[key]?.value;
@@ -520,6 +523,8 @@ const onSubmit = async () => {
         } else {
             console.error("Unknown error:", error);
         }
+    } finally {
+        loading.value = false;
     }
 };
 const sectionErrorCount = ref([0, 0, 0, 0]);
@@ -714,7 +719,7 @@ const updateSection = (index) => {
                         </template>
 
                         <hr class="mb-4" />
-                        <footer class="flex align-center justify-between">
+                        <div class="flex align-center justify-between">
                             <div>
                                 <button
                                     @click="
@@ -736,7 +741,7 @@ const updateSection = (index) => {
                                     Next
                                 </button>
                             </div>
-                        </footer>
+                        </div>
                     </section>
                 </template>
                 <section v-if="currentSection === sections.length" class="form-section">
@@ -890,9 +895,10 @@ const updateSection = (index) => {
                         :disabled="
                             sectionErrorCount.reduce((accumulator, currentValue) => {
                                 return accumulator + currentValue;
-                            }, 0) > 0
+                            }, 0) > 0 || loading
                         ">
-                        Submit
+                        <span v-if="!loading">Submit</span>
+                        <span v-else>Waiting for confirmation...</span>
                     </button>
                 </section>
             </form>
