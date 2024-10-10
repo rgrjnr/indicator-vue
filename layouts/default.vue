@@ -68,7 +68,9 @@
             <div>
                 © {{ new Date().getFullYear() }} Indicator Capital.
                 {{ $t("footer.all_rights_reserved") }}.&nbsp;
-                <a :href="localePath('/legal')">{{ $t("footer.legal_information") }}</a>
+                <a :href="item.url" v-for="item in menu[locale]" class="p-1">
+                    {{ item.title }}
+                </a>
             </div>
         </footer>
     </div>
@@ -76,6 +78,9 @@
 
 <script setup>
 const localePath = useLocalePath();
+const { locale } = useI18n();
+
+const { data: menu } = await $useFetch("/footer-menu");
 </script>
 
 <style lang="scss">

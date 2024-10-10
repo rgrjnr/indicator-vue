@@ -136,9 +136,13 @@
                 <path d="M142.25 185.25H209.75" stroke="#FFDA29" />
             </svg>
 
-            <div class="panel-box">
-                <a @click="navigateTo(localePath('/apply'))" class="btn">{{ $t("apply.title") }}</a>
-                <span class="ml-8">
+            <div class="panel-box flex-col md:flex-row">
+                <a
+                    @click="navigateTo(localePath('/apply'))"
+                    class="btn items-center flex! text-center justify-center">
+                    {{ $t("apply.title") }}
+                </a>
+                <span class="mx-8 my-4 self-center">
                     {{ $t("home.intro") }}
                 </span>
             </div>
@@ -506,8 +510,7 @@ onNuxtReady(() => {
 .panel-box {
     border: 1px solid;
     display: flex;
-    align-items: center;
-
+    align-items: stretch;
     @apply border-white;
 }
 

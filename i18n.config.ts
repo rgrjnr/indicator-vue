@@ -75,7 +75,7 @@ export default defineI18nConfig(() => ({
                 home: "Go to Home",
             },
             footer: {
-                all_rights_reserved: "All rights reserved.",
+                all_rights_reserved: "All rights reserved",
                 legal_information: "Legal information",
             },
         },
@@ -148,7 +148,7 @@ export default defineI18nConfig(() => ({
                 home: "Voltar para Home",
             },
             footer: {
-                all_rights_reserved: "Todos os direitos reservados.",
+                all_rights_reserved: "Todos os direitos reservados",
                 legal_information: "Informações legais",
             },
         },
