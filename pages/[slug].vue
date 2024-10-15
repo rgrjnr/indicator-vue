@@ -15,6 +15,6 @@ const { data: page } = await $useFetch("/pages", {
 });
 
 if (page.value[0].redirect) {
-    return navigateTo(page.value[0].redirect_to);
+    navigateTo(page.value[0].redirect_url, { external: true });
 }
 </script>
