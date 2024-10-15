@@ -14,5 +14,7 @@ const { data: page } = await $useFetch("/pages", {
     },
 });
 
-console.log(page);
+if (page.value.redirect) {
+    return navigateTo(page.value.redirect_to);
+}
 </script>
