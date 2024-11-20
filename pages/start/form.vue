@@ -428,6 +428,7 @@ const currentSection = ref(0);
 const file = ref();
 const panel = ref();
 const loading = ref(false);
+const agree = ref(false);
 
 const createSchema = (sections) => {
     const shape = {};
@@ -888,6 +889,19 @@ const updateSection = (index) => {
                             in this section
                         </div>
                     </li>
+                    <div>
+                        <label class="card flex align-center gap-2 my-8">
+                            <Switch
+                                v-model="agree"
+                                :checked="agree"
+                                @update:checked="agree = !agree" />
+                            I agree to the processing of my personal data according to the
+                            <a href="/privacy-policy" class="underline" target="_blank">
+                                Privacy Policy
+                            </a>
+                            .
+                        </label>
+                    </div>
 
                     <button
                         type="submit"
@@ -895,9 +909,12 @@ const updateSection = (index) => {
                         :disabled="
                             sectionErrorCount.reduce((accumulator, currentValue) => {
                                 return accumulator + currentValue;
-                            }, 0) > 0 || loading
+                            }, 0) > 0 ||
+                            loading ||
+                            !agree
                         ">
-                        <span v-if="!loading">Submit</span>
+                        <span v-if="!loading && agree">Submit</span>
+                        <span v-else-if="!agree">Please agree to the privacy policy</span>
                         <span v-else>Waiting for confirmation...</span>
                     </button>
                 </section>

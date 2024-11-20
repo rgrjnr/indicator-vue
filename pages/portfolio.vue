@@ -153,8 +153,9 @@
                     :class="{
                         'startup-wrapper': true,
                         'select-none': true,
-                        active: useRoute().params.slug == startup.slug,
+                        active: useRoute().params.slug == startup.slug && !forceHide,
                         'current-group': startup.group.includes(currentTag),
+                        'not-current-group': !startup.group.includes(currentTag),
                         exit: startup.group.includes(exitGroup),
                     }"
                     @click="
@@ -176,7 +177,7 @@
                             viewBox="0 0 362 362"
                             fill="none"
                             class="startup-focus"
-                            v-if="useRoute().params.slug == startup.slug"
+                            v-if="useRoute().params.slug == startup.slug && !forceHide"
                             xmlns="http://www.w3.org/2000/svg">
                             <g>
                                 <path
@@ -299,8 +300,6 @@ const render = () => {
     lines.value = [];
 
     for (let i = 0; i < constellation.value.length - 1; i++) {
-        if (i == 1)
-            console.log(constellation.value[i], constellation.value[i].getBoundingClientRect());
         const a = constellation.value[i].getBoundingClientRect();
         const b = constellation.value[i + 1].getBoundingClientRect();
 
@@ -512,6 +511,15 @@ onMounted(() => {
     left: 0;
     bottom: 0;
 
+    &:has(.current-group) {
+        .not-current-group {
+            pointer-events: none;
+            .startup-star {
+                opacity: 0.5;
+            }
+        }
+    }
+
     @media screen and (max-width: 80rem) {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -522,6 +530,13 @@ onMounted(() => {
         &:has(.current-group) {
             .startup-wrapper:not(.current-group) {
                 display: none;
+            }
+
+            .not-current-group {
+                pointer-events: none;
+                .startup-star {
+                    opacity: 0.5;
+                }
             }
         }
     }

@@ -68,7 +68,7 @@
             <div>
                 © {{ new Date().getFullYear() }} Indicator Capital.
                 {{ $t("footer.all_rights_reserved") }}.&nbsp;
-                <a :href="item.url" v-for="item in menu[locale]" class="p-1">
+                <a :href="item.url" v-for="item in menu[locale]" class="p-1" target="_blank">
                     {{ item.title }}
                 </a>
             </div>

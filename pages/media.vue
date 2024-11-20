@@ -2,7 +2,7 @@
     <div class="content">
         <div class="panel panel-main panel-stretch overflow-y-scroll scrollable" ref="panel">
             <div class="tabs mt-14 pr-4">
-                <div class="tabs-header text-xl">
+                <div class="tabs-header text-xl scrollable">
                     <div
                         :class="{ 'tab-title': true, active: showing == tab }"
                         v-for="tab in tabs"
@@ -11,6 +11,13 @@
                     </div>
                 </div>
                 <div class="tab-content">
+                    <div class="releases scrollable" v-if="showing == 'press'">
+                        <article v-html="press[0].content.rendered"></article>
+                    </div>
+                    <div class="releases scrollable" v-if="showing == 'brand'">
+                        <article v-html="brand[0].content.rendered"></article>
+                    </div>
+
                     <div class="releases scrollable" v-if="showing == 'releases'">
                         <div
                             class="release"
@@ -69,7 +76,9 @@
                 </div>
             </div>
         </div>
-        <div class="panel has-shape panel-secondary">
+        <div
+            class="panel has-shape panel-secondary"
+            v-if="showing != 'brand' && showing != 'press'">
             <NuxtPage />
             <svg
                 preserveAspectRatio="none"
@@ -89,14 +98,29 @@
 <script setup>
 const localePath = useLocalePath();
 const showing = ref("releases");
-const tabs = ["releases", "news"];
+const tabs = ["releases", "news", "brand", "press"];
 const mediaTotalPages = useState("mediaTotalPages", () => 0); // Using useState to preserve state between SSR and client-side
 const releasesTotalPages = useState("releasesTotalPages", () => 0); // Using useState to preserve state between SSR and client-side
 const mediaCurrentPage = ref(1); // Also using useState for mediaCurrentPage
 const releasesCurrentPage = ref(1); // Also using useState for mediaCurrentPage
 const panel = ref();
 
-const { data: media, refresh } = await $useFetch(
+const { locale } = useI18n();
+const currentLocale = locale.value;
+
+const { data: press } = await $useFetch("/pages", {
+    query: {
+        slug: currentLocale === "en" ? "press" : "imprensa",
+    },
+});
+
+const { data: brand } = await $useFetch("/pages", {
+    query: {
+        slug: currentLocale === "en" ? "brand" : "marca",
+    },
+});
+
+const { data: media } = await $useFetch(
     () => "/press" + `?page=${mediaCurrentPage.value}` + `&type=media`,
     {
         watch: [mediaCurrentPage],
@@ -139,6 +163,20 @@ setSeo("media");
 .tabs-header {
     display: flex;
     gap: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    max-width: calc(100vw - var(--content-padding) * 2);
+    padding-right: var(--content-padding);
+    margin-bottom: 1rem;
+}
+
+.tabs-header::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 0;
+}
+
+.tabs-header::-webkit-scrollbar {
+    height: 0.25rem;
 }
 
 .tabs {

@@ -27,6 +27,10 @@ export default defineI18nConfig(() => ({
                     "You’ll be able to download the responses so you can use them for other questionnaires in your fundraising roadshow!",
                 ],
             },
+            community: {
+                title: "Community",
+                h1: "Community",
+            },
             team: {
                 title: "Team",
                 h1: "Our Team",
@@ -53,7 +57,14 @@ export default defineI18nConfig(() => ({
                 filters: "Filters",
                 instructions: "Click the stars on the galaxy to learn more about our startups.",
             },
-            media: { title: "Media", h1: "Media", releases: "releases", news: "news" },
+            media: {
+                title: "Media",
+                h1: "Media",
+                releases: "releases",
+                news: "news",
+                brand: "brand",
+                press: "press",
+            },
             months: [
                 "January",
                 "February",
@@ -100,6 +111,10 @@ export default defineI18nConfig(() => ({
                     "Todas as perguntas estão em inglês e pedimos que sejam respondidas também em inglês.",
                 ],
             },
+            community: {
+                title: "Comunidade",
+                h1: "Comunidade",
+            },
             team: {
                 title: "Time",
                 h1: "Nosso Time",
@@ -126,7 +141,13 @@ export default defineI18nConfig(() => ({
                 filters: "Filtros",
                 instructions: "Clique nas estrelas para conhecer mais sobre nossas startups.",
             },
-            media: { title: "Mídia", releases: "releases", news: "notícias" },
+            media: {
+                title: "Mídia",
+                releases: "releases",
+                news: "notícias",
+                brand: "marca",
+                press: "imprensa",
+            },
             months: [
                 "Janeiro",
                 "Fevereiro",
