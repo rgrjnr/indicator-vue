@@ -65,6 +65,21 @@ export default defineI18nConfig(() => ({
                 brand: "brand",
                 press: "press",
             },
+            contact: {
+                title: "Contact",
+                h1: "Contact",
+                form: {
+                    name: "Name",
+                    email: "Email",
+                    subject: "Subject",
+                    message: "Message",
+                    please_fill_in_all_fields: "Please, fill in all fields before submitting.",
+                    submit: "Submit",
+                    waiting_for_confirmation: "Waiting for confirmation...",
+                    success: "Message sent successfully!",
+                    error: "An error occurred while sending the message.",
+                },
+            },
             months: [
                 "January",
                 "February",
@@ -129,6 +144,22 @@ export default defineI18nConfig(() => ({
                     youtube: "Youtube",
                     email: "Email",
                     languages_spoken: "Idiomas falados",
+                },
+            },
+            contact: {
+                title: "Contato",
+                h1: "Contato",
+                form: {
+                    name: "Nome",
+                    email: "Email",
+                    subject: "Assunto",
+                    message: "Mensagem",
+                    please_fill_in_all_fields:
+                        "Por favor, preencha todos os campos antes de enviar.",
+                    submit: "Enviar",
+                    waiting_for_confirmation: "Aguardando confirmação...",
+                    success: "Mensagem enviada com sucesso!",
+                    error: "Ocorreu um erro ao enviar a mensagem.",
                 },
             },
             startups: {

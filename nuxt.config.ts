@@ -58,6 +58,14 @@ export default defineNuxtConfig({
                 en: "/media",
                 pt: "/midia",
             },
+            community: {
+                en: "/community",
+                pt: "/comunidade",
+            },
+            contact: {
+                en: "/contact",
+                pt: "/contato",
+            },
         },
     },
     app: {
