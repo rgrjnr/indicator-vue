@@ -18,9 +18,10 @@ export const setSeo = async (slug, type = "pages", options = {}) => {
     useHead({
         title: () => title,
         description: () => description,
-        ogImage: page.value[0]?._embedded["wp:featuredmedia"]
-            ? page.value[0]?._embedded["wp:featuredmedia"].source_url
-            : "https://indicator.capital/images/OG.png",
+        ogImage:
+            page.value && page.value[0] && page.value[0]?._embedded["wp:featuredmedia"]
+                ? page.value[0]?._embedded["wp:featuredmedia"].source_url
+                : "https://indicator.capital/images/OG.png",
         titleTemplate: options.resetTemplate ? "%s" : "%s %separator %siteName",
     });
 };

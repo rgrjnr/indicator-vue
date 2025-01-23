@@ -14,6 +14,7 @@ export default defineI18nConfig(() => ({
                 de: "German",
                 fr: "French",
                 es: "Spanish",
+                it: "Italian",
             },
             welcome: "Welcome",
             home: { title: "Home", intro: "Start your investment process today!" },
@@ -30,6 +31,8 @@ export default defineI18nConfig(() => ({
             community: {
                 title: "Community",
                 h1: "Community",
+                events: "Events",
+                discord: "Join our server",
             },
             team: {
                 title: "Team",
@@ -111,7 +114,8 @@ export default defineI18nConfig(() => ({
                 pt: "Português",
                 de: "Alemão",
                 fr: "Francês",
-                es: "Spanish",
+                es: "Espanhol",
+                it: "Italiano",
             },
             welcome: "Bem-vindo",
             home: { title: "Home", intro: "Inicie seu processo de investimento hoje!" },
@@ -129,6 +133,8 @@ export default defineI18nConfig(() => ({
             community: {
                 title: "Comunidade",
                 h1: "Comunidade",
+                events: "Eventos",
+                discord: "Entrar no nosso servidor",
             },
             team: {
                 title: "Time",
