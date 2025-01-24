@@ -99,7 +99,10 @@
                         </svg>
                     </div>
                 </div>
-                <button @click="learnMore = !learnMore" v-if="selectedPlatform" class="mt-4">
+                <button
+                    @click="learnMore = !learnMore"
+                    v-if="selectedPlatform"
+                    style="margin-top: 1rem">
                     {{ $t("thesis.learnMore") }}
                 </button>
             </div>
@@ -374,9 +377,22 @@ const platforms = [
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 
     @media (max-height: 50rem) {
-        transform: scale(0.7);
+        svg {
+            width: 9rem;
+            height: auto;
+        }
+
+        .platform-image {
+            width: 5rem;
+            height: auto;
+        }
+
+        .platform-name {
+            font-size: 0.8rem;
+        }
     }
 }
 
