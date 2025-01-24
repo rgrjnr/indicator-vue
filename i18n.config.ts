@@ -21,6 +21,10 @@ export default defineI18nConfig(() => ({
             thesis: {
                 title: "Thesis",
                 subtitle: "Building value together",
+                select: "Select a layer",
+                reset: "Reset",
+                next: "Next",
+                learnMore: "Learn more",
             },
             apply: {
                 title: "<Start!>",
@@ -125,6 +129,10 @@ export default defineI18nConfig(() => ({
             thesis: {
                 title: "Tese",
                 subtitle: "Building value together",
+                select: "Selecione uma camada",
+                reset: "Resetar",
+                next: "Próximo",
+                learnMore: "Saber mais",
             },
             apply: {
                 title: "<Start!>",

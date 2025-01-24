@@ -3,7 +3,7 @@
         <h1
             class="flicker-on"
             v-html="'<span>' + $t('thesis.subtitle').split(' ').join(`<br />`) + '</span>'" />
-        <div :class="['thesis-wrapper', selectedPlatform]">
+        <div :class="['thesis-wrapper', selectedPlatform, learnMore ? 'learn-more' : '']">
             <div class="thesis-map">
                 <div class="thesis-info">
                     <div class="scramble">
@@ -13,7 +13,7 @@
                         }}
                     </div>
                     <div class="thesis-control">
-                        <button @click="selectPlatform(null)">Reset</button>
+                        <button @click="selectPlatform(null)">{{ $t("thesis.reset") }}</button>
                         <button
                             @click="
                                 selectPlatform(
@@ -24,14 +24,16 @@
                                     ].slug
                                 )
                             ">
-                            Next
+                            {{ $t("thesis.next") }}
                         </button>
                     </div>
                 </div>
                 <img src="/images/city.svg" class="thesis-image" />
             </div>
             <div class="thesis-panel">
-                <div class="thesis-panel-title" v-if="!selectedPlatform">Select a layer</div>
+                <div class="thesis-panel-title" v-if="!selectedPlatform">
+                    {{ $t("thesis.select") }}
+                </div>
                 <div class="platforms">
                     <div
                         :class="[
@@ -97,6 +99,9 @@
                         </svg>
                     </div>
                 </div>
+                <button @click="learnMore = !learnMore" v-if="selectedPlatform" class="mt-4">
+                    {{ $t("thesis.learnMore") }}
+                </button>
             </div>
         </div>
     </div>
@@ -105,10 +110,12 @@
 const { locale, setLocale } = useI18n();
 const selectedPlatform = ref();
 const { $gsap } = useNuxtApp();
+const learnMore = ref(false);
 
 const currentLocale = useI18n().locale.value;
 const platformsRef = ref([]);
 const selectPlatform = (slug) => {
+    if (slug === null) learnMore.value = false;
     if (selectedPlatform.value === slug) return;
     selectedPlatform.value = slug;
     $gsap.to(".scramble", {
@@ -250,7 +257,7 @@ const platforms = [
     display: flex;
     gap: 1rem;
 }
-.thesis-control button {
+.thesis-wrapper button {
     background-color: var(--color-white);
     color: var(--color-black);
     text-transform: uppercase;
@@ -454,7 +461,7 @@ const platforms = [
         z-index: 10;
     }
 
-    .thesis-wrapper:has(.selected) {
+    .learn-more {
         .thesis-panel {
             transform: translateX(100%);
         }
