@@ -545,7 +545,7 @@ onMounted(() => {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media screen and (max-width: 40rem) {
+    @media screen and (max-width: 52rem) {
         grid-template-columns: repeat(2, 1fr);
     }
 }

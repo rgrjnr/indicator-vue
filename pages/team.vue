@@ -202,7 +202,7 @@ setSeo("team");
     }
 }
 
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 52rem) {
     .members {
         grid-template-columns: 1fr 1fr;
         padding-bottom: 3rem;

@@ -1037,7 +1037,7 @@ const updateSection = (index) => {
     right: 1rem;
 }
 
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 52rem) {
     .form-section {
         padding-inline: 0rem;
     }

@@ -94,7 +94,7 @@ const availableLocales = computed(() => {
 });
 const pages = [
     { slug: "home", path: "/" },
-    // { slug: "thesis", path: "/thesis" },
+    { slug: "thesis", path: "/thesis" },
     { slug: "team", path: "/team" },
     { slug: "startups", path: "/startups" },
     { slug: "media", path: "/media" },
@@ -123,7 +123,7 @@ const toggleMenu = () => {
     display: none;
 }
 
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 52rem) {
     .main-menu {
         pointer-events: none;
         animation-name: flicker-off;

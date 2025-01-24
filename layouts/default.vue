@@ -111,7 +111,7 @@ footer {
     opacity: 0.5;
     font-size: 0.875rem;
 
-    @media screen and (max-width: 40rem) {
+    @media screen and (max-width: 52rem) {
         position: relative;
         text-align: center;
         width: 100%;

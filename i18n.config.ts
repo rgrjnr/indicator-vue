@@ -18,7 +18,10 @@ export default defineI18nConfig(() => ({
             },
             welcome: "Welcome",
             home: { title: "Home", intro: "Start your investment process today!" },
-            thesis: { title: "Thesis" },
+            thesis: {
+                title: "Thesis",
+                subtitle: "Building value together",
+            },
             apply: {
                 title: "<Start!>",
                 tag: "Application Form",
@@ -119,7 +122,10 @@ export default defineI18nConfig(() => ({
             },
             welcome: "Bem-vindo",
             home: { title: "Home", intro: "Inicie seu processo de investimento hoje!" },
-            thesis: { title: "Tese" },
+            thesis: {
+                title: "Tese",
+                subtitle: "Building value together",
+            },
             apply: {
                 title: "<Start!>",
                 tag: "Formulário de Aplicação",
