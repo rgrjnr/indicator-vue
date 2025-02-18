@@ -245,6 +245,13 @@ const sections = [
                     { label: "Other", value: "Other" },
                 ],
             },
+            {
+                label: "Tell us more about how you found us",
+                name: "other",
+                required: true,
+                type: "text",
+                if: { field: "findus", value: "Other", operator: "==" },
+            },
         ],
     },
     {
@@ -312,6 +319,7 @@ const sections = [
                     currencySign: "accounting",
                 },
                 min: 0,
+                validation: z.coerce.number().min(1),
                 step: 10000,
             },
 
@@ -326,6 +334,7 @@ const sections = [
                     currencySign: "accounting",
                 },
                 min: 0,
+                validation: z.coerce.number().min(1),
                 step: 10000,
             },
 
@@ -340,6 +349,7 @@ const sections = [
                     currencySign: "accounting",
                 },
                 min: 0,
+                validation: z.coerce.number().min(1),
                 step: 10000,
             },
             {
@@ -355,7 +365,7 @@ const sections = [
                 label: "Total capital raised until today",
                 name: "capitalraised",
                 type: "number",
-                if: "raised",
+                if: { field: "raised", value: true, operator: "==" },
                 min: 0,
                 formatOptions: {
                     style: "currency",
@@ -370,7 +380,7 @@ const sections = [
                 label: "For how much equity? (%)",
                 name: "equityraised",
                 type: "number",
-                if: "raised",
+                if: { field: "raised", value: true, operator: "==" },
                 formatOptions: {
                     style: "percent",
                     minimumFractionDigits: 1,
@@ -394,7 +404,7 @@ const sections = [
                 label: "How much capital are you currently raising?",
                 name: "capital",
                 type: "number",
-                if: "raising",
+                if: { field: "raising", value: true, operator: "==" },
                 min: 0,
                 formatOptions: {
                     style: "currency",
@@ -409,7 +419,7 @@ const sections = [
                 label: "For how much equity? (%)",
                 name: "equity",
                 type: "number",
-                if: "raising",
+                if: { field: "raising", value: true, operator: "==" },
                 formatOptions: {
                     style: "percent",
                     minimumFractionDigits: 1,
@@ -470,6 +480,7 @@ const formData = reactive(
 // Validate a specific field
 const validateField = (fieldName) => {
     if (!formData[fieldName].blurred) return;
+    console.log(formData[fieldName].value);
 
     const fieldSchema = schema.shape[fieldName];
     if (fieldSchema) {
@@ -533,10 +544,13 @@ const sectionErrorCount = ref([0, 0, 0, 0]);
 const review = async () => {
     try {
         const data = {};
-        for (var key in formData) {
+        const keys = Object.keys(formData);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
             data[key] = formData[key]?.value;
         }
 
+        console.log("REVIEW", formData);
         schema.parse(data);
         sectionErrorCount.value = [0, 0, 0, 0];
         // Handle successful validation (e.g., submit the form data to an API)
@@ -546,11 +560,24 @@ const review = async () => {
             // Handle validation errors
             // console.error("Validation errors:", error.errors);
 
+            const keysWithErrors = [];
             error.errors.forEach((e) => {
+                console.log(e);
                 if (formData[e.path[0]].section < currentSection.value) {
+                    console.log("ADD", e.path[0]);
                     formData[e.path[0]].errors = [e.message];
+                    keysWithErrors.push(e.path[0]);
                 }
             });
+            const keys = Object.keys(formData);
+
+            keys.forEach((key) => {
+                if (!keysWithErrors.includes(key) && formData[key].section < currentSection.value) {
+                    console.log("REMOVE", key);
+                    formData[key].errors = [];
+                }
+            });
+
             sectionErrorCount.value = [0, 0, 0, 0];
             sections.forEach((section, i) => {
                 sectionErrorCount.value[i] = 0;
@@ -624,10 +651,17 @@ const updateSection = (index) => {
                         <template v-for="item in section.items">
                             <FormField
                                 :name="item.name || ''"
-                                v-if="!item.if || (item.if && formData[item.if].value)">
+                                v-if="
+                                    !item.if ||
+                                    (item.if &&
+                                        formData[item.if.field]?.value &&
+                                        formData[item.if.field]?.value == item.if.value)
+                                ">
                                 <FormItem
                                     :class="{ invalid: formData[item.name]?.errors?.length > 0 }">
-                                    <FormLabel>{{ item.label }}</FormLabel>
+                                    <FormLabel>
+                                        {{ item.label }}
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             v-if="item.type === 'file'"

@@ -1,8 +1,5 @@
 <template>
     <div class="content">
-        <h1
-            class="flicker-on"
-            v-html="'<span>' + $t('thesis.subtitle').split(' ').join(`<br />`) + '</span>'" />
         <div :class="['thesis-wrapper', selectedPlatform, learnMore ? 'learn-more' : '']">
             <div class="thesis-map">
                 <div class="thesis-info">
@@ -50,7 +47,7 @@
                         :style="`--platform-index: ${index}`">
                         <div class="platform-content" v-if="platform.slug !== null">
                             <img
-                                :src="`images/platforms/${platform.slug || 'default'}.svg`"
+                                :src="`/images/platforms/${platform.slug || 'default'}.svg`"
                                 class="platform-image" />
                             <p class="platform-name">{{ platform.name[locale] }}</p>
                         </div>
@@ -457,11 +454,11 @@ const platforms = [
 }
 
 .industry {
-    --accent-color: #02c2ff;
+    --accent-color: var(--color-primary);
 }
 
 .media {
-    --accent-color: #02ff70;
+    --accent-color: var(--color-primary);
 }
 
 @media (max-width: 52rem) {

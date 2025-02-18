@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="panel panel-stretch overflow-y-scroll scrollable panel-main flex flex-col">
+        <div class="panel panel-stretch overflow-y-hidden scrollable panel-main flex flex-col">
             <h1 class="mt-14 mb-4">{{ $t("community.h1") }}</h1>
             <div class="flex gap-4 self-stretch flex-1 overflow-hidden community-panels">
                 <div class="flex-1 community-panel flex flex-col">
@@ -27,7 +27,7 @@
                     </h2>
 
                     <div class="discord scrollable" ref="discordRef">
-                        <div class="discord-message" v-for="message in discord">
+                        <div class="discord-message" v-for="message in discord.reverse()">
                             <div class="discord-side">
                                 <div
                                     class="discord-avatar"
@@ -63,7 +63,6 @@
     </div>
 </template>
 <script setup>
-const localePath = useLocalePath();
 const { data: discord } = await $useFetch("/discord");
 
 setSeo("community");
@@ -79,6 +78,26 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@media screen and (max-width: 52rem) {
+    .page-community .panel {
+        overflow-y: scroll;
+        padding-right: 2rem;
+    }
+
+    .community-panels {
+        flex-direction: column !important;
+        overflow: unset;
+    }
+
+    .community-panel {
+        min-height: 50vh;
+        max-height: 50vh;
+    }
+    .panel-main {
+        max-height: fit-content;
+    }
+}
+
 .discord-link {
     color: var(--color-white);
     background-color: var(--color-black);
@@ -178,20 +197,5 @@ onMounted(() => {
     border-radius: 0.5rem;
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--color-white);
-}
-
-@media (max-width: 52rem) {
-    .page-community .panel {
-        overflow-y: scroll;
-        padding-right: 2rem;
-    }
-    .community-panels {
-        flex-direction: column;
-        overflow: unset;
-    }
-
-    .community-panel {
-        min-height: 50vh;
-    }
 }
 </style>

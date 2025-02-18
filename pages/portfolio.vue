@@ -212,6 +212,8 @@
     </div>
 </template>
 <script setup>
+const localePath = useLocalePath();
+
 const space = ref();
 const rotation = ref(0);
 const currentTag = ref();
@@ -282,6 +284,15 @@ const reorderConstellation = () => {
 
     constellation.value = reordered;
 };
+
+const onResize = () => {
+    window.location.href = localePath("/portfolio");
+};
+
+// Clean up listener when component is unmounted
+onUnmounted(() => {
+    window.removeEventListener("resize", onResize);
+});
 
 const render = () => {
     // if (rotating.value) {
@@ -362,6 +373,7 @@ onMounted(() => {
 
         render();
     }
+    window.addEventListener("resize", onResize);
 });
 </script>
 <style lang="scss">
@@ -382,8 +394,8 @@ onMounted(() => {
 
 // Startup tutorial
 .startup-tutorial {
-    width: 401px;
-    height: 532px;
+    aspect-ratio: 401 / 532;
+    max-height: 50vh;
     position: fixed;
     z-index: 0;
     bottom: calc(2 * var(--content-padding) - 1rem);
@@ -406,6 +418,11 @@ onMounted(() => {
         z-index: 1;
         margin: 3rem;
         text-align: center;
+    }
+
+    svg {
+        width: 100%;
+        height: auto;
     }
 
     @media screen and (max-width: 80rem) {
@@ -502,7 +519,7 @@ onMounted(() => {
 
 // Startups space
 .startups-space {
-    --orbit-duration: 60s;
+    --orbit-duration: 240s;
     transform-style: preserve-3d;
     transform-origin: 50%;
     position: absolute;

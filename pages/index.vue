@@ -269,6 +269,7 @@ const initialPosition = ref([0, 0]);
 const speed = ref(0);
 const gameIsActive = ref(false);
 const bullets = ref([]);
+const points = ref(0);
 
 const createBullet = () => {
     bullets.value.push({
@@ -354,6 +355,11 @@ const render = () => {
                 bullets.value.splice(i, 1);
                 solid.classList.add("colided");
                 solid.classList.remove("solid");
+                points.value++;
+
+                if (points.value >= 24) {
+                    window.location.href = localePath("/");
+                }
             }
         });
 
