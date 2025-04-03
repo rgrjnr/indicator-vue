@@ -3,12 +3,13 @@
         <div :class="['thesis-wrapper', selectedPlatform, learnMore ? 'learn-more' : '']">
             <div class="thesis-map">
                 <div class="thesis-info">
-                    <div class="scramble">
-                        {{
+                    <div
+                        class="scramble"
+                        v-if="selectedPlatform"
+                        v-html="
                             platforms.find((platform) => platform.slug === selectedPlatform)
-                                ?.description?.[locale]
-                        }}
-                    </div>
+                                .description
+                        "></div>
                     <div class="thesis-control">
                         <button @click="selectPlatform(null)">{{ $t("thesis.reset") }}</button>
                         <button
@@ -25,7 +26,7 @@
                         </button>
                     </div>
                 </div>
-                <img src="/images/city.svg" class="thesis-image" />
+                <City class="thesis-image" />
             </div>
             <div class="thesis-panel">
                 <div class="thesis-panel-title" v-if="!selectedPlatform">
@@ -35,6 +36,7 @@
                     <div
                         :class="[
                             'platform',
+
                             platform.type,
                             selectedPlatform === platform.slug && selectedPlatform != null
                                 ? 'selected'
@@ -49,7 +51,7 @@
                             <img
                                 :src="`/images/platforms/${platform.slug || 'default'}.svg`"
                                 class="platform-image" />
-                            <p class="platform-name">{{ platform.name[locale] }}</p>
+                            <p class="platform-name">{{ platform.name }}</p>
                         </div>
                         <svg
                             width="217"
@@ -114,6 +116,10 @@ const learnMore = ref(false);
 
 const currentLocale = useI18n().locale.value;
 const platformsRef = ref([]);
+
+const { data: thesis } = await $useFetch("/thesis");
+console.log(thesis);
+
 const selectPlatform = (slug) => {
     if (slug === null) learnMore.value = false;
     if (selectedPlatform.value === slug) return;
@@ -123,7 +129,9 @@ const selectPlatform = (slug) => {
         scrambleText: {
             speed: 0.1,
             chars: "dkjo30iudjkmlz,@#!)I(@J)          ",
-            text: platforms.find((platform) => platform.slug === slug).description[currentLocale],
+            text: platforms
+                .find((platform) => platform.slug === slug)
+                .description.replace(/<[^>]*>/g, ""),
         },
     });
 };
@@ -158,96 +166,11 @@ onMounted(() => {
 
 const platforms = [
     { slug: null },
-    {
-        slug: "envirormentandsociety",
-        name: { en: "Environment and Society", pt: "Ambiente e Sociedade" },
-        description: {
-            en: "Envirorment and Society description ",
-            pt: "Descrição de Ambiente e Sociedade",
-        },
-        type: "industry",
-    },
-    {
-        slug: "agribusiness",
-        name: { en: "Agribusiness", pt: "Agropecuária" },
-        description: {
-            en: "Agribusiness description",
-            pt: "Descrição de Agropecuária",
-        },
-        type: "industry",
-    },
-    {
-        slug: "industry40",
-        name: { en: "Industry 4.0", pt: "Indústria 4.0" },
-        description: {
-            en: "Industry 4.0 description",
-            pt: "Descrição de Indústria 4.0",
-        },
-        type: "industry",
-    },
-    {
-        slug: "health",
-        name: { en: "Health", pt: "Saúde" },
-        description: {
-            en: "Health description",
-            pt: "Descrição de Saúde",
-        },
-        type: "industry",
-    },
-    {
-        slug: "smartcities",
-        name: { en: "Smart Cities", pt: "Cidades Inteligentes" },
-        description: {
-            en: "Smart Cities description",
-            pt: "Descrição de Cidades Inteligentes",
-        },
-        type: "industry",
-    },
-    {
-        slug: "sensorsanddevices",
-        name: { en: "Sensors and Devices", pt: "Sensores e Dispositivos" },
-        description: {
-            en: "Sensors and Devices description",
-            pt: "Descrição de Sensores e Dispositivos",
-        },
-        type: "media",
-    },
-    {
-        slug: "connectivity",
-        name: { en: "Connectivity", pt: "Conectividade" },
-        description: {
-            en: "Connectivity description",
-            pt: "Descrição de Conectividade",
-        },
-        type: "media",
-    },
-    {
-        slug: "cloud",
-        name: { en: "Cloud", pt: "Cloud" },
-        description: {
-            en: "Cloud description",
-            pt: "Descrição de Cloud",
-        },
-        type: "media",
-    },
-    {
-        slug: "dataintelligence",
-        name: { en: "Data Intelligence", pt: "Inteligência de Dados" },
-        description: {
-            en: "Data Intelligence description",
-            pt: "Descrição de Inteligência de Dados",
-        },
-        type: "media",
-    },
-    {
-        slug: "securityandblockchain",
-        name: { en: "Security and Blockchain", pt: "Segurança e Blockchain" },
-        description: {
-            en: "Security and Blockchain description",
-            pt: "Descrição de Segurança e Blockchain",
-        },
-        type: "media",
-    },
+    ...thesis.value.map((platform) => ({
+        slug: platform.slug,
+        name: platform.title.rendered,
+        description: platform.content.rendered,
+    })),
 ];
 </script>
 
@@ -271,6 +194,7 @@ const platforms = [
     margin-bottom: 1rem;
 }
 .page-thesis h1 {
+    margin: 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -286,7 +210,6 @@ const platforms = [
         animation-delay: 300ms;
         animation-fill-mode: forwards;
     }
-    margin: 0;
 }
 .thesis-image {
     width: 100%;
@@ -295,35 +218,109 @@ const platforms = [
     mix-blend-mode: screen;
     transition: 500ms ease-in-out all;
 }
+#agribusiness,
+#cloud,
+#security,
+#sensors,
+#data,
+#health,
+#smart_cities,
+#connectivity,
+#industry40,
+#battery-platform-active,
+#energy-platform-active,
+#smartcities-platform-active,
+#city-platform-active,
+#industry40-platform-active,
+#agribusiness-platform-active,
+#health-platform-active {
+    opacity: 0;
+    display: none;
+}
+
+%flicker-on {
+    display: block;
+    animation-name: flicker-on;
+    animation-duration: 600ms;
+    animation-fill-mode: forwards;
+    animation-delay: 300ms;
+}
+
 .envirormentandsociety .thesis-image {
     transform: scale(0.85);
+
+    #battery-platform-active,
+    #energy-platform-active,
+    #smartcities-platform-active,
+    #city-platform-active,
+    #industry40-platform-active,
+    #agribusiness-platform-active,
+    #health-platform-active {
+        @extend %flicker-on;
+    }
 }
 .agribusiness .thesis-image {
     transform: scale(2.5) translate(3%, -35%);
+
+    #agribusiness {
+        @extend %flicker-on;
+    }
 }
 .industry40 .thesis-image {
     transform: scale(2.2) translate(-28%, -21%);
+
+    #industry40 {
+        @extend %flicker-on;
+    }
 }
 .health .thesis-image {
     transform: scale(2.3) translate(28%, -15%);
+
+    #health {
+        @extend %flicker-on;
+    }
 }
 .smartcities .thesis-image {
-    transform: scale(2.3) translate(30.3%, 15%);
+    transform: scale(2.3) translate(30.3%, 10%);
+
+    #smart_cities {
+        @extend %flicker-on;
+    }
 }
 .sensorsanddevices .thesis-image {
     transform: scale(0.85);
+
+    #sensors {
+        @extend %flicker-on;
+    }
 }
 .connectivity .thesis-image {
-    transform: scale(2.5) translate(-25%, 33%);
+    transform: scale(2.5) translate(-26%, 28%);
+
+    #connectivity {
+        @extend %flicker-on;
+    }
 }
 .cloud .thesis-image {
-    transform: scale(2.5) translate(-35%, 3%);
+    transform: scale(2.5) translate(-36%, 0%);
+
+    #cloud {
+        @extend %flicker-on;
+    }
 }
 .dataintelligence .thesis-image {
     transform: scale(0.85);
+
+    #data {
+        @extend %flicker-on;
+    }
 }
 .securityandblockchain .thesis-image {
     transform: scale(0.85);
+
+    #security {
+        @extend %flicker-on;
+    }
 }
 
 .thesis-wrapper {
@@ -400,6 +397,7 @@ const platforms = [
     z-index: calc(20 - var(--platform-index, 0));
     transition: 500ms ease-in-out margin;
     cursor: pointer;
+    --accent-color: var(--color-primary);
 }
 
 .platform path,
@@ -454,7 +452,6 @@ const platforms = [
 }
 
 .industry {
-    --accent-color: var(--color-primary);
 }
 
 .media {

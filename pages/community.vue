@@ -1,7 +1,8 @@
 <template>
     <div class="content">
-        <div class="panel panel-stretch overflow-y-hidden scrollable panel-main flex flex-col">
-            <h1 class="mt-14 mb-4">{{ $t("community.h1") }}</h1>
+        <div
+            class="panel panel-stretch overflow-y-hidden overflow-x-hidden panel-main flex flex-col">
+            <h1 class="mt-14 mb-4 hidden md:block">{{ $t("community.h1") }}</h1>
             <div class="flex gap-4 self-stretch flex-1 overflow-hidden community-panels">
                 <div class="flex-1 community-panel flex flex-col">
                     <h2>{{ $t("community.events") }}</h2>
@@ -78,26 +79,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@media screen and (max-width: 52rem) {
-    .page-community .panel {
-        overflow-y: scroll;
-        padding-right: 2rem;
-    }
-
-    .community-panels {
-        flex-direction: column !important;
-        overflow: unset;
-    }
-
-    .community-panel {
-        min-height: 50vh;
-        max-height: 50vh;
-    }
-    .panel-main {
-        max-height: fit-content;
-    }
-}
-
 .discord-link {
     color: var(--color-white);
     background-color: var(--color-black);
@@ -126,9 +107,20 @@ onMounted(() => {
 
 .discord {
     overflow-y: scroll;
+    overflow-x: hidden;
     flex: 1;
 }
 
+.discord-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+}
+
+.discord-content {
+    flex: 1;
+    max-width: calc(100% - 2rem);
+}
 .discord-message {
     display: flex;
     gap: 0.5rem;
@@ -179,7 +171,7 @@ onMounted(() => {
     opacity: 0.5;
     display: inline;
     font-size: 0.8rem;
-    margin-left: 0.5rem;
+    white-space: nowrap;
 }
 
 .discord-reactions {
@@ -197,5 +189,32 @@ onMounted(() => {
     border-radius: 0.5rem;
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--color-white);
+}
+
+@media screen and (max-width: 52rem) {
+    .community-panels {
+        flex-direction: column !important;
+    }
+
+    .community-panel {
+        max-height: 50vh;
+    }
+    .panel-main {
+        max-height: -webkit-fill-available;
+        height: -webkit-fill-available;
+    }
+
+    .community-panel h2 {
+        font-size: 1rem !important;
+    }
+
+    .discord-message {
+        padding: 1rem;
+    }
+
+    .discord-avatar {
+        width: 2rem;
+        height: 2rem;
+    }
 }
 </style>

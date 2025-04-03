@@ -76,6 +76,7 @@ h2 {
     gap: 1rem;
     padding: var(--content-padding);
     position: relative;
+    width: 100%;
     background-color: rbga(var(--rgb-white) 0.3);
 }
 

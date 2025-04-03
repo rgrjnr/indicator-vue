@@ -515,6 +515,7 @@ onMounted(() => {
 
 .filter-svg {
     max-height: 3.5rem !important;
+    height: 3.5rem !important;
 }
 
 // Startups space
@@ -588,6 +589,10 @@ onMounted(() => {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.startup-star {
+    cursor: pointer;
 }
 .startup-wrapper {
     position: absolute;
