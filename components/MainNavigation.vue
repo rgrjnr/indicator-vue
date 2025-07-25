@@ -94,10 +94,11 @@ const availableLocales = computed(() => {
 });
 const pages = [
     { slug: "home", path: "/" },
-    //{ slug: "thesis", path: "/thesis" },
+    { slug: "thesis", path: "/thesis" },
     { slug: "team", path: "/team" },
     { slug: "startups", path: "/startups" },
     { slug: "media", path: "/media" },
+    { slug: "about", path: "/about" },
     { slug: "community", path: "/community" },
 ];
 
