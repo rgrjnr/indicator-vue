@@ -15,7 +15,9 @@
                         <article v-html="press[0].content.rendered"></article>
                     </div>
                     <div class="releases scrollable" v-if="showing == 'brand'">
-                        <article v-html="brand[0].content.rendered" class="rendered"></article>
+                        <article
+                            v-html="brand[0].content.rendered"
+                            class="rendered rendered-prettier"></article>
                     </div>
 
                     <div class="releases scrollable" v-if="showing == 'releases'">
@@ -295,30 +297,5 @@ setSeo("media");
     justify-content: center;
     align-items: center;
     padding: 1rem;
-}
-
-.rendered {
-    max-width: 80ch;
-    h1 {
-        @apply text-2xl;
-    }
-
-    h2 {
-        @apply text-xl;
-    }
-
-    h3 {
-        @apply text-lg;
-    }
-
-    strong {
-        background-color: var(--color-white);
-        color: var(--color-black);
-    }
-
-    a {
-        color: var(--color-white);
-        text-decoration: underline;
-    }
 }
 </style>

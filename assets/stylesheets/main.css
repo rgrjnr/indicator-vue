@@ -13,7 +13,7 @@
 }
 
 body {
-    font-family: 'Indicator';
+    font-family: "Indicator";
     width: 100vw;
     height: 100svh;
     display: flex;
@@ -33,10 +33,9 @@ body {
     --color-red: #ffaeae;
     --content-padding: max(3rem, 5vb);
 
-    --shape-mask-image: url('/images/team-shape.svg');
+    --shape-mask-image: url("/images/team-shape.svg");
     @apply text-base;
 }
-
 
 h1 {
     @apply text-4xl;
@@ -46,7 +45,6 @@ h1 {
 
 h2 {
     line-height: 1;
-    ;
 }
 
 #website {
@@ -80,7 +78,6 @@ h2 {
     background-color: rbga(var(--rgb-white) 0.3);
 }
 
-
 .content h1 {
     @apply text-3xl;
 }
@@ -94,7 +91,6 @@ h2 {
     margin-block: calc(-1 * var(--content-padding));
     padding-block: var(--content-padding);
 }
-
 
 .panel-shape {
     position: absolute;
@@ -113,7 +109,6 @@ h2 {
 }
 
 .has-shape .panel-inside {
-
     overflow-x: hidden;
     aspect-ratio: inherit;
     position: absolute;
@@ -168,7 +163,7 @@ h2 {
     bottom: 0;
     right: 0;
     z-index: 0;
-    content: '';
+    content: "";
     width: 0px;
     height: 0px;
     border-style: solid;
@@ -192,12 +187,10 @@ h2 {
     background-color: rgba(226, 253, 255, 0.25);
 }
 
-
 .scrollable::-webkit-scrollbar-track {
     background-color: transparent;
     margin: var(--content-padding);
 }
-
 
 .scrollable:hover::-webkit-scrollbar-thumb {
     background-color: var(--color-white);
@@ -205,10 +198,7 @@ h2 {
 
 .scrollable::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-primary) !important;
-
 }
-
-
 
 .noise {
     position: absolute;
@@ -219,7 +209,6 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .noise video {
@@ -239,7 +228,6 @@ h2 {
     mix-blend-mode: color-dodge;
 }
 
-
 @media screen and (max-width: 80rem) {
     body {
         padding: 2rem;
@@ -249,7 +237,6 @@ h2 {
     video {
         display: none;
     }
-
 }
 
 @media screen and (max-width: 52rem) {
@@ -261,9 +248,7 @@ h2 {
     #website {
         border-width: 0;
     }
-
 }
-
 
 .shape-btn {
     padding: 1rem;
@@ -285,7 +270,6 @@ h2 {
     animation-fill-mode: forwards;
 }
 
-
 .shape-btn-sm {
     padding: 0.25rem 1rem;
 }
@@ -305,7 +289,6 @@ h2 {
     width: 100%;
     height: -webkit-fill-available;
     max-height: 2rem;
-
 }
 
 .shape-btn path,
@@ -322,7 +305,6 @@ h2 {
     resize: none;
     font: inherit;
     padding: 0.25em;
-
 }
 
 .input:focus {
@@ -345,7 +327,7 @@ h2 {
 }
 
 .form-item:focus-within label {
-    color: var(--color-primary)
+    color: var(--color-primary);
 }
 
 .form-item-helper {
@@ -368,7 +350,6 @@ h2 {
 }
 
 .input::file-selector-button {
-
     background-color: var(--color-white);
     color: var(--color-black);
     border: none;
@@ -408,8 +389,68 @@ h2 {
 }
 
 .btn:hover {
-
     animation-name: flicker-on;
     animation-duration: 300ms;
     animation-fill-mode: forwards;
+}
+
+.rendered {
+    max-width: 80ch;
+}
+
+.rendered h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.rendered h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.rendered h3 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.rendered strong {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.rendered a {
+    color: var(--color-white);
+    text-decoration: underline;
+}
+
+.rendered-prettier {
+    font-size: 1.25rem;
+}
+
+.rendered-prettier p {
+    margin-block: 1rem;
+}
+
+.rendered-prettier h1,
+.rendered-prettier h2,
+.rendered-prettier h3,
+.rendered-prettier h4 {
+    margin-block: 1rem;
+}
+
+.rendered-prettier h2:not(:first-child) {
+    margin-top: 4rem;
+}
+
+.rendered-prettier h3 {
+    margin-top: 2em;
+}
+
+.rendered-prettier h2 {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.rendered-prettier table td {
+    padding: 0.5rem;
 }

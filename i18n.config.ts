@@ -67,6 +67,11 @@ export default defineI18nConfig(() => ({
                 filters: "Filters",
                 instructions: "Click the stars on the galaxy to learn more about our startups.",
             },
+            about: {
+                title: "About us",
+                h1: "About us",
+                description: "About us",
+            },
             media: {
                 title: "Media",
                 h1: "Media",
@@ -165,6 +170,11 @@ export default defineI18nConfig(() => ({
                     email: "Email",
                     languages_spoken: "Idiomas falados",
                 },
+            },
+            about: {
+                title: "Sobre nós",
+                h1: "Sobre nós",
+                description: "Sobre a empresa",
             },
             contact: {
                 title: "Contato",
