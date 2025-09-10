@@ -279,7 +279,7 @@ const sections = [
                 label: "Tell us more about the founding team",
                 name: "aboutteam",
                 required: true,
-                validation: z.string().min(10).max(100),
+                validation: z.string().min(10).max(300),
                 limit: 300,
                 type: "text",
                 helperText:
