@@ -320,7 +320,7 @@ const sections = [
                 },
                 min: 0,
                 validation: z.coerce.number().min(1),
-                step: 10000,
+                step: 100,
             },
 
             {
@@ -335,7 +335,7 @@ const sections = [
                 },
                 min: 0,
                 validation: z.coerce.number().min(1),
-                step: 10000,
+                step: 100,
             },
 
             {
@@ -350,7 +350,7 @@ const sections = [
                 },
                 min: 0,
                 validation: z.coerce.number().min(1),
-                step: 10000,
+                step: 100,
             },
             {
                 label: "Have you ever raised capital?",
@@ -373,7 +373,7 @@ const sections = [
                     currencyDisplay: "code",
                     currencySign: "accounting",
                 },
-                step: 10000,
+                step: 100,
             },
 
             {
@@ -412,7 +412,7 @@ const sections = [
                     currencyDisplay: "code",
                     currencySign: "accounting",
                 },
-                step: 10000,
+                step: 100,
             },
 
             {
