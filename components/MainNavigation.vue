@@ -99,7 +99,7 @@ const pages = [
     { slug: "startups", path: "/startups" },
     { slug: "media", path: "/media" },
     { slug: "about", path: "/about" },
-    { slug: "community", path: "/community" },
+    
 ];
 
 const toggleMenu = () => {
