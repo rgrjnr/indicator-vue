@@ -225,7 +225,7 @@ const extraRotationSpeed = ref(0);
 const rotationTime = ref(0);
 const showFilter = ref(false);
 
-const { data: startups } = await $useFetch("/startups");
+const { data: startups } = await $useFetch("/startups?per_page=100");
 const { data: tags } = await $useFetch("/group");
 
 const groups = tags.value.filter((g) => g.parent == 0);
