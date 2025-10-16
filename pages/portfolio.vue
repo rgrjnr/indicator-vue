@@ -371,6 +371,16 @@ onMounted(() => {
             ];
         });
 
+        // 🔥 Pré-carrega todas as imagens das startups
+startups.value.forEach((s) => {
+  const media = s._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  if (media) {
+    const img = new Image();
+    img.src = media;
+  }
+});
+
+
         render();
     }
     window.addEventListener("resize", onResize);
