@@ -822,4 +822,35 @@ startups.value.forEach((s) => {
         transform: rotate(360deg);
     }
 }
+
+    /* ---------- Correção segura para interação (hover + clique) ---------- */
+
+/* As wrappers mantêm seu posicionamento original (não altere position aqui) */
+/* Apenas garante pointer-events e empilhamento, sem alterar layout/posicionamento */
+.startup-wrapper,
+.startup-star {
+  /* Não alterar position (preserve o absolute que seu layout já usa) */
+  pointer-events: auto !important; /* garante que possam ser clicadas */
+  z-index: 1000; /* alto, mas sem forçar posicionamento novo */
+  /* Não colocar position: relative/absolute aqui — preserve o que já existe no seu CSS */
+}
+
+/* Elementos decorativos (linhas) não devem interceptar eventos */
+.lines,
+.constellation-line {
+  pointer-events: none !important;
+}
+
+/* Caso exista um wrapper pai que esteja cobrindo (ex.: .content ou .startups-space),
+   mantenha pointer-events nos filhos e garanta que o pai não bloqueie: */
+.startups-space {
+  pointer-events: none; /* desabilita no container, mas habilita nas wrappers via rule acima */
+}
+
+/* Porém, explicitamente permita interação nos filhos (reafirmação segura) */
+.startups-space .startup-wrapper,
+.startups-space .startup-star {
+  pointer-events: auto !important;
+}
+
 </style>
